@@ -1,0 +1,408 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<sim-project version="11.91" multi-file="no" uid="simp74cc61bc77904cc8b40c776133d2587f">
+  <meta>
+    <name>Project</name>
+    <authors> </authors>
+    <description />
+  </meta>
+  <counters models="1">
+    <entity-names>
+      <counter>
+        <item-type type-id="state" type="UmlState" />
+        <value>2</value>
+      </counter>
+      <counter>
+        <item-type type-id="final-state" type="UmlFinalState" />
+        <value>1</value>
+      </counter>
+    </entity-names>
+    <entity-ids>
+      <counter>
+        <item-type type-id="group" type="AbstractElementGroup" />
+        <value>503</value>
+      </counter>
+      <counter>
+        <item-type type-id="state" type="UmlState" />
+        <value>8</value>
+      </counter>
+      <counter>
+        <item-type type-id="decision" type="UmlDecision" />
+        <value>2</value>
+      </counter>
+      <counter>
+        <item-type type-id="general-transition" type="UmlTransition" />
+        <value>12</value>
+      </counter>
+      <counter>
+        <item-type type-id="final-state" type="UmlFinalState" />
+        <value>2</value>
+      </counter>
+    </entity-ids>
+    <diagrams>
+      <counter>
+        <type>SoftwareIdeasModeler.Core.Diagrams.UmlDiagrams.UmlStateMachineDiagram</type>
+        <value>1</value>
+      </counter>
+    </diagrams>
+    <fields />
+  </counters>
+  <alias-groups />
+  <management uid="md-4b57c3d81c5b448f8c7fb18250d8ed12" name="" task-id-sequence="0">
+    <working-schedule uid="ws-5938299b0e8748b5a0945c821444bf4b" hours="8" monday="8" tuesday="8" wednesday="8" thursday="8" friday="8" saturday="0" sunday="0" />
+    <persons>
+      <person id="P53236e0cf77d4ccd9a665e8508235f34">
+        <first-name>Daniel van</first-name>
+        <last-name>Eijk-Bos</last-name>
+        <role />
+        <e-mail />
+        <phone-number />
+        <description />
+        <color>#00000000</color>
+        <working-schedule uid="ws-58eb687c46c04a54ac61153ef4ae5652" hours="8" monday="8" tuesday="8" wednesday="8" thursday="8" friday="8" saturday="0" sunday="0" />
+      </person>
+    </persons>
+    <teams />
+    <sprints />
+    <projects />
+    <modules />
+    <tasks />
+    <to-dos />
+  </management>
+  <glossary id="glsr-26e73e3e77fe412aac807b30b0f99deb" />
+  <types default="UML">
+    <type-sets>
+      <type-set file="UmlTypes.xml" />
+    </type-sets>
+    <custom-types />
+  </types>
+  <items />
+  <models>
+    <model id="p027e144edc0148d69e50e3faab173116_965759298" name="Model1" namespace="" order-index="1">
+      <meta>
+        <authors>
+          <author> </author>
+        </authors>
+        <description />
+        <creation-date>11/02/2019 13:57:17</creation-date>
+        <change-date>01/01/0001 00:00:00</change-date>
+        <revision-count>0</revision-count>
+        <version />
+      </meta>
+      <abstract-items />
+      <sub-models />
+      <diagram type="uml-statechart" id="p7f9eaf05a70842cf8c8ec1bb9df1a955_398294774" name="StateMachineDiagram1" order-index="1" uid="" show-id="false" show-name="true" show-parent-name="false" name-style="local-auto-parents" show-stereotypes="true" show-tagged-values="false" show-template-parameters="true" show-fields="true" show-empty-compartments="true" show-special-indicators="false" show-attributes="true" show-attribute-visibility="true" show-operations="true" show-operation-parameters="true" show-operation-visibility="true" show-nullability="true" show-sequence-number="false" show-extension-points="false" show-relationship-texts="true" show-description="false" show-field-description="false" auto-routed-paths="false" view-location="145,90" zoom="0.9">
+        <style>
+          <background-color index="1" color="#FFFFFFFF" />
+          <background-color index="2" color="#FFFFFFFF" />
+          <background-type type="solid" />
+        </style>
+        <meta>
+          <authors>
+            <author> </author>
+          </authors>
+          <description />
+          <creation-date>11/02/2019 13:57:17</creation-date>
+          <change-date>11/02/2019 14:25:01</change-date>
+          <revision-count>0</revision-count>
+          <version />
+        </meta>
+        <abstract-items>
+          <item id="a5904ba71abf4d7eb51d33af1348736a" cid="ELEM010" type="general-transition" name="" style-class="" visibility="package" change-tracking-state="added" creator="P53236e0cf77d4ccd9a665e8508235f34" creation-date="11/02/2019 14:19:18" from="3b84e7d7f75047af8cd22fcf9048a974" to="5b83188aaf01497bb1735f2018568b0a">
+            <transition guard="reading == 0" behaviourExpression=" array = temp_array">
+              <trigger />
+            </transition>
+          </item>
+          <item id="0eb1e26e8b674ba0baf8fd052a7db4f1" cid="IS002" type="initial-state" name="" style-class="" visibility="package" change-tracking-state="added" creation-date="10/31/2019 13:38:06" />
+          <item id="514907f6fcf349658c16d7f210d3a3fb" cid="ST003" type="state" name="start_pulse_meter" style-class="" visibility="package" change-tracking-state="added" creation-date="10/31/2019 13:38:17">
+            <state-invariant />
+            <actions>
+              <action id="sa-84f59bd1-9478-4c26-b0a5-d5f5aa975f81" name="entry" behavior="sensor = ir_sensor" />
+              <action id="sa-35249cc0-1612-4544-8bca-85ca634b1498" name="entry" behavior="array&lt;int, 16&gt; array" />
+              <action id="sa-61e1c5e1-90f2-414b-8171-c03c19d0a241" name="entry" behavior="array&lt;int, 16&gt; test_array" />
+              <action id="sa-df8b35f6-1f25-4cf5-b5ef-a21042c2f834" name="entry" behavior="i = 0" />
+              <action id="sa-135e0614-8305-4160-adaa-1a07663e5b5c" name="entry" behavior="100usclock" />
+              <action id="sa-c9155b3e-ad85-4dd2-a570-febc081ac2f9" name="entry" behavior="array&lt;int, 16&gt; temp_array" />
+            </actions>
+            <source-codes>
+              <source-code language="ActionScript" uid="scs-0d0bfb45-2fcc-4070-b2f9-1112e34f50a9" />
+            </source-codes>
+          </item>
+          <item id="37d76ed337f34dd9aae1969a3b6ea514" cid="ELEM004" type="general-transition" name="" style-class="" visibility="package" change-tracking-state="added" creation-date="10/31/2019 13:39:47" from="0eb1e26e8b674ba0baf8fd052a7db4f1" to="514907f6fcf349658c16d7f210d3a3fb">
+            <transition guard="" behaviourExpression="" />
+          </item>
+          <item id="5b83188aaf01497bb1735f2018568b0a" cid="ST004" type="state" name="waiting_for_signal" style-class="" visibility="package" change-tracking-state="added" creation-date="10/31/2019 13:42:06">
+            <state-invariant />
+            <actions>
+              <action id="sa-9471804f-ad38-49d6-8812-522993fbaf9f" name="entry" behavior="reading = sensor.read()" />
+            </actions>
+          </item>
+          <item id="15c649cffd5f498e9bb2e59ed603289f" cid="ELEM005" type="general-transition" name="" style-class="" visibility="package" change-tracking-state="added" creation-date="10/31/2019 13:42:26" from="514907f6fcf349658c16d7f210d3a3fb" to="5b83188aaf01497bb1735f2018568b0a">
+            <transition guard="sensor.read() == 1" behaviourExpression="">
+              <trigger>100us_clock</trigger>
+            </transition>
+          </item>
+          <item id="f62dd66c628546428c9d21051a0a892b" cid="ELEM006" type="general-transition" name="" style-class="" visibility="package" change-tracking-state="added" creation-date="10/31/2019 13:43:11" from="5b83188aaf01497bb1735f2018568b0a" to="5b83188aaf01497bb1735f2018568b0a">
+            <transition guard="reading == 1" behaviourExpression="">
+              <trigger>100us_clock</trigger>
+            </transition>
+          </item>
+          <item id="046539b2a1104a4daf2eebf8445720f3" cid="ST005" type="state" name="signal_received" style-class="" visibility="package" change-tracking-state="added" creation-date="10/31/2019 13:44:22">
+            <state-invariant />
+            <actions>
+              <action id="sa-dae8fcdd-b88e-460d-90c2-28ecf1950e58" name="entry" behavior="reading = sensor.read()" />
+            </actions>
+            <source-codes>
+              <source-code language="ActionScript" uid="scs-1177dbbd-a774-473b-8a5d-417bef82f758" />
+            </source-codes>
+          </item>
+          <item id="e4240bddd471445ababbe3a375290bbb" cid="ELEM007" type="general-transition" name="" style-class="" visibility="package" change-tracking-state="added" creation-date="10/31/2019 13:45:04" from="5b83188aaf01497bb1735f2018568b0a" to="046539b2a1104a4daf2eebf8445720f3">
+            <transition guard="reading == 0" behaviourExpression=" startsignal = now_us()">
+              <trigger />
+            </transition>
+          </item>
+          <item id="7f92412098d247f39f9b3063fad269fe" cid="ELEM008" type="general-transition" name="" style-class="" visibility="package" change-tracking-state="added" creation-date="10/31/2019 13:46:37" from="046539b2a1104a4daf2eebf8445720f3" to="046539b2a1104a4daf2eebf8445720f3">
+            <transition guard="reading == 0" behaviourExpression="">
+              <trigger>100us_clock</trigger>
+            </transition>
+          </item>
+          <item id="343978cb513c4686b613c4e87d82a90e" cid="ELEM013" type="general-transition" name="" style-class="" visibility="package" change-tracking-state="added" creation-date="10/31/2019 14:00:57" from="046539b2a1104a4daf2eebf8445720f3" to="a467c0e1577e4ebb8c25ec24782ee98e">
+            <transition guard="reading == 1" behaviourExpression=" endsignal = now_us(); signaltime = endsignal - startsignal; pause_timer.set(3000)">
+              <trigger />
+            </transition>
+          </item>
+          <item id="78d74fa4ca01422ab1545a58d6971060" cid="ELEM016" type="general-transition" name="" style-class="" visibility="package" change-tracking-state="added" creation-date="10/31/2019 14:03:59" from="e36296d09b24474d889cee87f080490a" to="3b84e7d7f75047af8cd22fcf9048a974">
+            <transition guard="" behaviourExpression=" pause_timer.set(1000)">
+              <trigger>pause_timer</trigger>
+            </transition>
+          </item>
+          <item id="5dd3de00e830438c884e04ed15a3570d" cid="ELEM023" type="general-transition" name="" style-class="" visibility="package" change-tracking-state="added" creation-date="10/31/2019 14:18:02" from="a467c0e1577e4ebb8c25ec24782ee98e" to="e36296d09b24474d889cee87f080490a">
+            <transition guard="signaltime &lt;= 1200" behaviourExpression=" temp_array[i] = 0">
+              <trigger />
+            </transition>
+          </item>
+          <item id="62b316294fe54a149518a3d015646503" cid="ELEM025" type="general-transition" name="" style-class="" visibility="package" change-tracking-state="added" creation-date="10/31/2019 14:18:18" from="a467c0e1577e4ebb8c25ec24782ee98e" to="e36296d09b24474d889cee87f080490a">
+            <transition guard="signaltime &lt;= 2000 &amp;&amp; signaltime &gt; 1200" behaviourExpression=" temp_array[i] = 1">
+              <trigger />
+            </transition>
+          </item>
+          <item id="e36296d09b24474d889cee87f080490a" cid="ST015" type="state" name="pause_timer" style-class="" visibility="package" change-tracking-state="added" creation-date="10/31/2019 14:23:56">
+            <state-invariant />
+            <actions>
+              <action id="sa-31d45964-2682-4f26-a190-526ba904966b" name="entry" behavior="reading = sensor.read()" />
+            </actions>
+          </item>
+          <item id="b48da421946541b1ba39974ee31aafca" cid="ELEM032" type="general-transition" name="" style-class="" visibility="package" change-tracking-state="added" creation-date="10/31/2019 14:25:47" from="e36296d09b24474d889cee87f080490a" to="e36296d09b24474d889cee87f080490a">
+            <transition guard="reading == 1" behaviourExpression="">
+              <trigger>100us_clock</trigger>
+            </transition>
+          </item>
+          <item id="1395b52e2f414a2ebea05d1e4ecbaab4" cid="ELEM037" type="general-transition" name="" style-class="" visibility="package" change-tracking-state="added" creation-date="10/31/2019 14:36:40" from="e36296d09b24474d889cee87f080490a" to="046539b2a1104a4daf2eebf8445720f3">
+            <transition guard="reading == 0" behaviourExpression=" startsignal = now_us(); i++">
+              <trigger />
+            </transition>
+          </item>
+          <item id="3394b3c04b0f4ff08d949e5744c093b1" cid="ELEM011" type="general-transition" name="" style-class="" visibility="package" change-tracking-state="added" creator="P53236e0cf77d4ccd9a665e8508235f34" creation-date="11/02/2019 14:19:39" from="3b84e7d7f75047af8cd22fcf9048a974" to="514907f6fcf349658c16d7f210d3a3fb">
+            <transition guard="reading == 1" behaviourExpression=" test_array = temp_array; decoder_taak.decode(array, test_array)">
+              <trigger>pause_timer</trigger>
+            </transition>
+          </item>
+          <item id="60476a743e4841a495fedbf928bfca02" cid="ST002" type="state" name="STD pulse_meter_taak" style-class="" visibility="package" change-tracking-state="added" creator="P53236e0cf77d4ccd9a665e8508235f34" creation-date="11/02/2019 14:01:48">
+            <state-invariant />
+            <actions />
+          </item>
+          <item id="a467c0e1577e4ebb8c25ec24782ee98e" cid="DC001" type="decision" name="" style-class="" visibility="package" change-tracking-state="added" creator="P53236e0cf77d4ccd9a665e8508235f34" creation-date="11/02/2019 14:05:12" />
+          <item id="35d42adc036341e7885c92a0edecf2bc" cid="ELEM001" type="general-transition" name="" style-class="" visibility="package" change-tracking-state="added" creator="P53236e0cf77d4ccd9a665e8508235f34" creation-date="11/02/2019 14:07:38" from="a467c0e1577e4ebb8c25ec24782ee98e" to="514907f6fcf349658c16d7f210d3a3fb">
+            <transition guard="else" behaviourExpression="">
+              <trigger />
+            </transition>
+          </item>
+          <item id="3b84e7d7f75047af8cd22fcf9048a974" cid="ST007" type="state" name="check_pause" style-class="" visibility="package" change-tracking-state="added" creator="P53236e0cf77d4ccd9a665e8508235f34" creation-date="11/02/2019 14:11:47">
+            <state-invariant />
+            <actions>
+              <action id="sa-5400da11-d584-4104-a18b-51fbbf2a7870" name="entry" behavior="reading = sensor.read()" />
+            </actions>
+          </item>
+          <item id="e3822b066a094b60b7ff0a36e170e3ff" cid="ELEM009" type="general-transition" name="" style-class="" visibility="package" change-tracking-state="added" creator="P53236e0cf77d4ccd9a665e8508235f34" creation-date="11/02/2019 14:12:37" from="3b84e7d7f75047af8cd22fcf9048a974" to="3b84e7d7f75047af8cd22fcf9048a974">
+            <transition guard="reading == 1" behaviourExpression="">
+              <trigger>100us_clock</trigger>
+            </transition>
+          </item>
+        </abstract-items>
+        <layer id="0c67331cb9864b538e3e11c0d48d70bb" name="Default" visible="true" enabled="true" locked="false">
+          <item id="0eb1e26e8b674ba0baf8fd052a7db4f1" iid="86b8158fd1d64a7b9387f4218546f42a" anchor="None" creation-date="10/31/2019 13:38:06" order-index="4" type="entity">
+            <layout ax="255" ay="206.5" awidth="25" aheight="25" x="255" y="206.5" width="25" height="25" name-position="0,10" name-anchor="bottom" auto-anchor="true" label-attached="false" />
+          </item>
+          <item id="514907f6fcf349658c16d7f210d3a3fb" iid="f255de9e705849338da04eaa3c03417b" anchor="None" creation-date="10/31/2019 13:38:17" order-index="5" type="entity">
+            <layout ax="483" ay="154.5" awidth="225" aheight="129" x="483" y="154.5" width="225" height="129" />
+          </item>
+          <item id="37d76ed337f34dd9aae1969a3b6ea514" iid="ae2901bcd683487aab54683e5419de64" creation-date="10/31/2019 13:39:47" order-index="6" type="relation">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="280" y1="219" x2="483" y2="219" start-border-pos="0.375" end-border-pos="0.875" name-position="0,0">
+              <points>
+                <point x="280" y="219" />
+                <point x="483" y="219" />
+              </points>
+            </layout>
+            <relation from="0eb1e26e8b674ba0baf8fd052a7db4f1" from-iid="86b8158fd1d64a7b9387f4218546f42a" to="514907f6fcf349658c16d7f210d3a3fb" to-iid="f255de9e705849338da04eaa3c03417b" />
+          </item>
+          <item id="5b83188aaf01497bb1735f2018568b0a" iid="2313a26839f94850a6cd1cef323229ec" anchor="None" creation-date="10/31/2019 13:42:06" order-index="7" type="entity">
+            <layout ax="871.5" ay="186.5" awidth="234" aheight="65" x="871.5" y="186.5" width="234" height="65" />
+          </item>
+          <item id="15c649cffd5f498e9bb2e59ed603289f" iid="fc6b867268de46e2af9414a19cf76252" creation-date="10/31/2019 13:42:26" order-index="8" type="relation">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="708" y1="219" x2="872" y2="219" start-border-pos="0.375" end-border-pos="0.875" name-position="0,-5">
+              <points>
+                <point x="708" y="219" />
+                <point x="872" y="219" />
+              </points>
+            </layout>
+            <relation from="514907f6fcf349658c16d7f210d3a3fb" from-iid="f255de9e705849338da04eaa3c03417b" to="5b83188aaf01497bb1735f2018568b0a" to-iid="2313a26839f94850a6cd1cef323229ec" />
+          </item>
+          <item id="f62dd66c628546428c9d21051a0a892b" iid="755ec14e9c2448bbb65ec496aaff5ccd" creation-date="10/31/2019 13:43:11" order-index="9" type="relation">
+            <layout line-style="oblique" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="1106" y1="186" x2="988" y2="186" start-border-pos="0.25" end-border-pos="0.124413145539906" name-position="112,31">
+              <points>
+                <point x="1106" y="186" />
+                <point x="1107.5" y="141" />
+                <point x="989.5" y="142" />
+                <point x="988" y="186" />
+              </points>
+            </layout>
+            <relation from="5b83188aaf01497bb1735f2018568b0a" from-iid="2313a26839f94850a6cd1cef323229ec" to="5b83188aaf01497bb1735f2018568b0a" to-iid="2313a26839f94850a6cd1cef323229ec" />
+          </item>
+          <item id="046539b2a1104a4daf2eebf8445720f3" iid="a4a24b214e614bf0823aa057c8586cf5" anchor="None" creation-date="10/31/2019 13:44:22" order-index="10" type="entity">
+            <layout ax="882" ay="388.5" awidth="213" aheight="50" x="882" y="388.5" width="213" height="50" />
+          </item>
+          <item id="e4240bddd471445ababbe3a375290bbb" iid="a48f321477454c20bc812228b45c9106" creation-date="10/31/2019 13:45:04" order-index="11" type="relation">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="988" y1="252" x2="988" y2="388" start-border-pos="0.625534188034188" end-border-pos="0.124413145539906" name-position="58,18" name-width="110">
+              <points>
+                <point x="988" y="252" />
+                <point x="988" y="388" />
+              </points>
+            </layout>
+            <relation from="5b83188aaf01497bb1735f2018568b0a" from-iid="2313a26839f94850a6cd1cef323229ec" to="046539b2a1104a4daf2eebf8445720f3" to-iid="a4a24b214e614bf0823aa057c8586cf5" />
+          </item>
+          <item id="7f92412098d247f39f9b3063fad269fe" iid="d63236ae044f49eda93e672a43f3fae2" creation-date="10/31/2019 13:46:37" order-index="12" type="relation">
+            <layout line-style="oblique" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="1095" y1="414" x2="1095" y2="388" start-border-pos="0.375" end-border-pos="0.25" name-position="54,18">
+              <points>
+                <point x="1095" y="414" />
+                <point x="1140" y="413.5" />
+                <point x="1140" y="388.5" />
+                <point x="1095" y="388" />
+              </points>
+            </layout>
+            <relation from="046539b2a1104a4daf2eebf8445720f3" from-iid="a4a24b214e614bf0823aa057c8586cf5" to="046539b2a1104a4daf2eebf8445720f3" to-iid="a4a24b214e614bf0823aa057c8586cf5" />
+          </item>
+          <item id="343978cb513c4686b613c4e87d82a90e" iid="f9b5ec51e6ca472a88e075009144269c" creation-date="10/31/2019 14:00:57" order-index="19" type="relation">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="true" lock-to-fields="false" auto-path="" x1="988" y1="438" x2="988" y2="599" start-border-pos="0.625586854460094" end-border-pos="0.121875002980232" name-position="138,40" name-width="278">
+              <points>
+                <point x="988" y="438" />
+                <point x="988" y="599" />
+              </points>
+            </layout>
+            <relation from="046539b2a1104a4daf2eebf8445720f3" from-iid="a4a24b214e614bf0823aa057c8586cf5" to="a467c0e1577e4ebb8c25ec24782ee98e" to-iid="4840f3de488d4fb5a2eacf4636e9aa98" />
+          </item>
+          <item id="78d74fa4ca01422ab1545a58d6971060" iid="d8948d702afc49e8aa79a9d4e1678afb" creation-date="10/31/2019 14:03:59" order-index="23" type="relation">
+            <layout line-style="oblique" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="674" y1="598" x2="675" y2="446" start-border-pos="0.125586852431297" end-border-pos="0.623641304671764" name-position="-48,37">
+              <points>
+                <point x="674" y="598" />
+                <point x="675" y="446" />
+              </points>
+            </layout>
+            <relation from="e36296d09b24474d889cee87f080490a" from-iid="cfc8e15a45ed4a19a732d2a762e7eed3" to="3b84e7d7f75047af8cd22fcf9048a974" to-iid="b0cd2b2d176b4051b827a56d31f13562" />
+          </item>
+          <item id="5dd3de00e830438c884e04ed15a3570d" iid="28063b56915d410789179d5e8f0ed71d" creation-date="10/31/2019 14:18:02" order-index="30" type="relation">
+            <layout line-style="oblique" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="968" y1="631" x2="780" y2="631" start-border-pos="0.875" end-border-pos="0.375" name-position="8,50" name-width="126">
+              <points>
+                <point x="968" y="631" />
+                <point x="780" y="631" />
+              </points>
+            </layout>
+            <relation from="a467c0e1577e4ebb8c25ec24782ee98e" from-iid="4840f3de488d4fb5a2eacf4636e9aa98" to="e36296d09b24474d889cee87f080490a" to-iid="cfc8e15a45ed4a19a732d2a762e7eed3" />
+          </item>
+          <item id="62b316294fe54a149518a3d015646503" iid="7ef29ea7cd64479d8ac0de059ae8b7db" creation-date="10/31/2019 14:18:18" order-index="31" type="relation">
+            <layout line-style="oblique" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="988" y1="662" x2="729" y2="664" start-border-pos="0.628125" end-border-pos="0.559859154929577" name-position="4,-7" name-width="168">
+              <points>
+                <point x="988" y="662" />
+                <point x="988.5" y="839.5" />
+                <point x="730" y="840.5" />
+                <point x="729" y="664" />
+              </points>
+            </layout>
+            <relation from="a467c0e1577e4ebb8c25ec24782ee98e" from-iid="4840f3de488d4fb5a2eacf4636e9aa98" to="e36296d09b24474d889cee87f080490a" to-iid="cfc8e15a45ed4a19a732d2a762e7eed3" />
+          </item>
+          <item id="e36296d09b24474d889cee87f080490a" iid="cfc8e15a45ed4a19a732d2a762e7eed3" anchor="None" creation-date="10/31/2019 14:23:56" order-index="35" type="entity">
+            <layout ax="567" ay="598.5" awidth="213" aheight="65" x="567" y="598.5" width="213" height="65" />
+          </item>
+          <item id="b48da421946541b1ba39974ee31aafca" iid="7d35b6f529394afd837bfd5efaacffe1" creation-date="10/31/2019 14:25:47" order-index="37" type="relation">
+            <layout line-style="oblique" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="674" y1="664" x2="567" y2="664" start-border-pos="0.624413145539906" end-border-pos="0.75" name-position="-3,38" name-width="110">
+              <points>
+                <point x="674" y="664" />
+                <point x="675" y="717.5" />
+                <point x="568" y="717.5" />
+                <point x="567" y="664" />
+              </points>
+            </layout>
+            <relation from="e36296d09b24474d889cee87f080490a" from-iid="cfc8e15a45ed4a19a732d2a762e7eed3" to="e36296d09b24474d889cee87f080490a" to-iid="cfc8e15a45ed4a19a732d2a762e7eed3" />
+          </item>
+          <item id="1395b52e2f414a2ebea05d1e4ecbaab4" iid="8f27c52fd3224dd18fb8a101c57332b9" creation-date="10/31/2019 14:36:40" order-index="42" type="relation">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="722" y1="598" x2="953" y2="438" start-border-pos="0.1816328165117" end-border-pos="0.666347593208994" name-position="2,25" name-width="147">
+              <points>
+                <point x="722" y="598" />
+                <point x="953" y="438" />
+              </points>
+            </layout>
+            <relation from="e36296d09b24474d889cee87f080490a" from-iid="cfc8e15a45ed4a19a732d2a762e7eed3" to="046539b2a1104a4daf2eebf8445720f3" to-iid="a4a24b214e614bf0823aa057c8586cf5" />
+          </item>
+          <item id="60476a743e4841a495fedbf928bfca02" iid="c00a8e8cafbc4cfbb39b9f4e8bf8ded9" anchor="None" creation-date="11/02/2019 14:01:48" order-index="43" type="entity">
+            <layout ax="189" ay="40" awidth="188" aheight="50" x="189" y="40" width="188" height="50" />
+          </item>
+          <item id="a467c0e1577e4ebb8c25ec24782ee98e" iid="4840f3de488d4fb5a2eacf4636e9aa98" anchor="None" creation-date="11/02/2019 14:05:12" order-index="44" type="entity">
+            <layout ax="968.5" ay="598.5" awidth="40" aheight="65" x="968.5" y="598.5" width="40" height="65" name-position="0,10" name-anchor="bottom" auto-anchor="true" label-attached="false" />
+          </item>
+          <item id="35d42adc036341e7885c92a0edecf2bc" iid="d6b6b0a1097d49d5a84e8ee228eb5fb2" creation-date="11/02/2019 14:07:38" order-index="45" type="relation">
+            <layout line-style="oblique" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="1007" y1="630" x2="483" y2="284" start-border-pos="0.371153846383095" end-border-pos="0.75" name-position="392,-281">
+              <points>
+                <point x="1007" y="630" />
+                <point x="1095" y="629" />
+                <point x="1095" y="933" />
+                <point x="487" y="929" />
+                <point x="483" y="284" />
+              </points>
+            </layout>
+            <relation from="a467c0e1577e4ebb8c25ec24782ee98e" from-iid="4840f3de488d4fb5a2eacf4636e9aa98" to="514907f6fcf349658c16d7f210d3a3fb" to-iid="f255de9e705849338da04eaa3c03417b" />
+          </item>
+          <item id="3b84e7d7f75047af8cd22fcf9048a974" iid="b0cd2b2d176b4051b827a56d31f13562" anchor="None" creation-date="11/02/2019 14:11:47" order-index="46" type="entity">
+            <layout ax="567" ay="381" awidth="213" aheight="65" x="567" y="381" width="213" height="65" />
+          </item>
+          <item id="e3822b066a094b60b7ff0a36e170e3ff" iid="e55b77a0bfcc4266b559240fbce01c51" creation-date="11/02/2019 14:12:37" order-index="47" type="relation">
+            <layout line-style="oblique" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="567" y1="445" x2="567" y2="414" start-border-pos="0.7525" end-border-pos="0.8725" name-position="4,52">
+              <points>
+                <point x="567" y="445" />
+                <point x="541" y="443.5" />
+                <point x="541" y="415" />
+                <point x="567" y="414" />
+              </points>
+            </layout>
+            <relation from="3b84e7d7f75047af8cd22fcf9048a974" from-iid="b0cd2b2d176b4051b827a56d31f13562" to="3b84e7d7f75047af8cd22fcf9048a974" to-iid="b0cd2b2d176b4051b827a56d31f13562" />
+          </item>
+          <item id="a5904ba71abf4d7eb51d33af1348736a" iid="0397659ef86d4fb292de3e6a499f9467" creation-date="11/02/2019 14:19:18" order-index="48" type="relation">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="727" y1="381" x2="936" y2="252" start-border-pos="0.187955972734192" end-border-pos="0.680585681882679" name-position="4,13" name-width="134">
+              <points>
+                <point x="727" y="381" />
+                <point x="936" y="252" />
+              </points>
+            </layout>
+            <relation from="3b84e7d7f75047af8cd22fcf9048a974" from-iid="b0cd2b2d176b4051b827a56d31f13562" to="5b83188aaf01497bb1735f2018568b0a" to-iid="2313a26839f94850a6cd1cef323229ec" />
+          </item>
+          <item id="3394b3c04b0f4ff08d949e5744c093b1" iid="124e71f865f048d38d69f51e4f40fdf4" creation-date="11/02/2019 14:19:39" order-index="49" type="relation">
+            <layout line-style="oblique" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="712" y1="381" x2="708" y2="284" start-border-pos="0.170187786221504" end-border-pos="0.5" name-position="-86,41" name-width="177">
+              <points>
+                <point x="712" y="381" />
+                <point x="708" y="284" />
+              </points>
+            </layout>
+            <relation from="3b84e7d7f75047af8cd22fcf9048a974" from-iid="b0cd2b2d176b4051b827a56d31f13562" to="514907f6fcf349658c16d7f210d3a3fb" to-iid="f255de9e705849338da04eaa3c03417b" />
+          </item>
+        </layer>
+      </diagram>
+    </model>
+  </models>
+</sim-project>

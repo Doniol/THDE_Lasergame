@@ -11,32 +11,35 @@ int main(){
     auto out1 = hwlib::target::pin_oc(hwlib::target::pins::a1);
     auto out2 = hwlib::target::pin_oc(hwlib::target::pins::a2);
     auto out3 = hwlib::target::pin_oc(hwlib::target::pins::a3);
-    auto in0 = hwlib::target::pin_oc(hwlib::target::pins::a4);
-    auto in1 = hwlib::target::pin_oc(hwlib::target::pins::a5);
-    auto in2 = hwlib::target::pin_oc(hwlib::target::pins::a6);
-    auto in3 = hwlib::target::pin_oc(hwlib::target::pins::a7);
+    auto in0 = hwlib::target::pin_in(hwlib::target::pins::a4);
+    auto in1 = hwlib::target::pin_in(hwlib::target::pins::a5);
+    auto in2 = hwlib::target::pin_in(hwlib::target::pins::a6);
+    auto in3 = hwlib::target::pin_in(hwlib::target::pins::a7);
 
     auto out_port = hwlib::port_oc_from(out0, out1, out2, out3);
-    auto in_port = hwlib::port_oc_from(in0, in1, in2, in3);
+    auto in_port = hwlib::port_in_from(in0, in1, in2, in3);
     auto matrix = hwlib::matrix_of_switches(out_port, in_port);
 
     auto keypad = hwlib::keypad<16>(matrix, "147*369#2580ABCD");
     auto button = hwlib::target::pin_in(hwlib::target::pins::d13);
 
-    auto scl = target::pin_oc(target::pins::scl);
-    auto sda = target::pin_oc(target::pins::sda);
+    auto scl = hwlib::target::pin_oc(hwlib::target::pins::scl);
+    auto sda = hwlib::target::pin_oc(hwlib::target::pins::sda);
     auto i2c_bus = hwlib::i2c_bus_bit_banged_scl_sda(scl, sda);
     auto oled = hwlib::glcd_oled(i2c_bus, 0x3c);
 
 
-    auto init_game;
-    auto run_game_taak;
-    auto game_parameters_taak;
-    auto transfer_hits;
+    game_parameters_taak game_parameters;
+
     auto display = display_taak(oled);
-    auto input = invoer_taak(keypad, button, init_game, run_game, game_parameters, transfer_hits);
-    auto decoder = decoder_taak(game_parameters_taak, run_game_taak);
+    auto send = send_taak();
+    auto init_game = init_game_taak(send, display);
+    auto transfer_hits = transfer_hits_taak();
+    auto run_game = run_game_taak(send, game_parameters, init_game, display, transfer_hits);
+    game_parameters = game_parameters_taak(run_game);
+    auto decoder = decoder_taak(game_parameters, run_game);
     auto pulse_meter = pulse_meter_taak(decoder, tsop_signal, tsop_gnd, tsop_vdd);
+    auto input = invoer_taak(keypad, button, init_game, run_game, game_parameters, transfer_hits);
 
     rtos::run();
 }

@@ -1,13 +1,13 @@
-#ifndef SEND_TAAK.HPP
-#define SEND_TAAK.HPP
+#ifndef SEND_TAAK_HPP
+#define SEND_TAAK_HPP
 
 #include "IR.hpp"
 
-class ir_sender : public rtos::task<>{
+class send_taak : public rtos::task<>{
 private:
     rtos::pool<std::array<int, 2>> message_pool;
     rtos::flag message_flag;
-    hwlib::target::d2_36kHz & ir;
+    hwlib::target::d2_36kHz ir;
     std::array<int, 16> signal_array;
     rtos::timer timed_out;
     rtos::timer sender;
@@ -15,16 +15,16 @@ private:
     states state;
 
 public:
-    ir_sender(hwlib::target::d2_36kHz & ir, const uint8_t player, const uint8_t data):
+    send_taak():
+        task("send_taak"),
         message_pool("message_pool"),
         message_flag(this, "message_flag"),
-        ir(ir),
         timed_out(this, "timed_out timer"),
         sender(this, "sender timer")
     {}
 
-    void send(int player, int data){
-        message_pool.write(player, data);
+    void send_message(int player, int data){
+        message_pool.write({player, data});
         message_flag.set();
     }
 
@@ -77,7 +77,7 @@ public:
                     beep(signal_array, ir);
                     timed_out.set(3'000);
                     wait(timed_out);
-                    send(signal_array, ir);
+                    beep(signal_array, ir);
                     state = states::idle;
                     break;
             }

@@ -3,7 +3,12 @@
 
 #include "IR.hpp"
 
-class game_parameters : public rtos::task<> : public invoer_listener : public decoder_listener{
+class parameters_listener{
+public:
+    virtual void player_parameters(int player, int weapon, int time) = 0;
+};
+
+class game_parameters_taak : public rtos::task<>, public invoer_listener, public decoder_listener{
 private:
     rtos::channel<char, 10> parameters_input_channel;
     rtos::pool<std::array<int, 2>> message_pool;
@@ -11,14 +16,16 @@ private:
     rtos::flag run_parameters_flag;
     enum class states{wait_new_game, get_player_id, get_weapon, wait_time, wait_start};
     states state;
+    parameters_listener &run_game;
 
 public:
-    game_parameters():
+    game_parameters_taak(parameters_listener &run_game):
         task("game_parameters"),
         parameters_input_channel(this, "parameters_input_channel"),
         message_pool("message_pool"),
         message_flag(this, "message_flag"),
-        run_parameters_flag(this, "run_parameters_flag")
+        run_parameters_flag(this, "run_parameters_flag"),
+        run_game(run_game)
     {}
 
     void button_pressed(char button_id) override{
@@ -41,7 +48,7 @@ public:
         return false;
     }
 
-    void main override{
+    void main() override{
         state = states::wait_new_game;
         char button_id;
         int player_id;
@@ -91,8 +98,8 @@ public:
                     auto message = message_pool.read();
                     player = message[0];
                     data = message[1];
-                    if(player == 0 && message == 0){
-                        run_game_control.player_parameters(player_id, weapon, time);
+                    if(player == 0 && data == 0){
+                        run_game.player_parameters(player_id, weapon, time);
                         state = states::wait_new_game;
                     }
                     break;

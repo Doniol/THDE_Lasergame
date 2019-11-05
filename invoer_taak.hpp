@@ -5,14 +5,14 @@
 
 class invoer_listener{
 public:
-    virtual void button_pressed(char button_id) == 0;
-}
+    virtual void button_pressed(char button_id) = 0;
+};
 
 class invoer_taak : public rtos::task<>{
 private:
-    rtos::clock ms100_clock;
     hwlib::keypad<16> keypad;
     hwlib::target::pin_in button;
+    rtos::clock ms100_clock;
     invoer_listener &init_game, &run_game, &game_parameters, &transfer_hits;
 
 public:
@@ -29,14 +29,13 @@ public:
     {}
 
     void main() override{
-        hwlib::istream keys = keypad;
         for(;;){
             char button_id;
-            wait(100ms_clock);
+            wait(ms100_clock);
             if(button.read()){
                 button_id = 'T';
             } else {
-                button_id = keys.getc();
+                button_id = keypad.getc();
             }
 
             init_game.button_pressed(button_id);

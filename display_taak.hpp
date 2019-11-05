@@ -5,26 +5,34 @@
 
 class display_taak : public rtos::task<>{
 private:
-    rtos::channel<std::string, 10> texts;
+    rtos::channel<std::array<int, 3>, 10> message_channel;
     hwlib::glcd_oled oled;
 
 public:
     display_taak(hwlib::glcd_oled oled):
         task("display_taak"),
-        texts(this, "texts"),
+        message_channel(this, "message_channel"),
         oled(oled)
     {}
 
-    void show_message(std::string text){
-        texts.write(text);
+    void show_message(int player, int data){
+        message_channel.write({player, data});
     }
 
     void main() override{
         auto font = hwlib::font_default_8x8();
         auto display = hwlib::terminal_from(oled, font);
         for(;;){
-            std::string text = texts.read();
-            display << text << hwlib::flush;
+            auto message = message_channel.read();
+            if(message[0] == 0){
+                if(message[1] != 0){
+                    display << "Command: " << message[1] << hwlib::flush;
+                } else {
+                    display << "Start Game" <<hwlib::flush;
+                }
+            } else {
+                display << "Player: " << message[0] << "\nTime: " << message[1] << hwlib::flush;
+            }
         }
     }
 };

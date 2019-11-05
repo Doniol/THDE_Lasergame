@@ -7,7 +7,7 @@
 class decoder_listener{
 public:
     // A virtual function created to be used as desired by the subclasses of this function
-    virtual void signal_log(int player, int data) == 0;
+    virtual void signal_log(int player, int data) = 0;
 };
 
 // Class used to decode the output from the pulse_meter_taak and send it to the desired tasks

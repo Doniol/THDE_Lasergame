@@ -3,7 +3,7 @@
 
 #include "IR.hpp"
 
-class init_game_taak : public rtos::task<> : public invoer_listener{
+class init_game_taak : public rtos::task<>, public invoer_listener{
 private:
     rtos::channel<char, 10> init_input_channel;
     rtos::flag run_init_game_flag;
@@ -13,10 +13,12 @@ private:
     states state;
 
 public:
-    init_game_taak():
+    init_game_taak(send_taak &send, display_taak &display):
         task("init_game_taak"),
         init_input_channel(this, "init_input_channel"),
-        run_init_game_flag(this, "run_init_game_flag")
+        run_init_game_flag(this, "run_init_game_flag"),
+        display(display),
+        send(send)
     {}
 
     void button_pressed(char button_id) override{
@@ -47,7 +49,7 @@ public:
                 
                 case states::get_command:
                     button_id = init_input_channel.read();
-                    display.show_message("Command: " + command);
+                    display.show_message(0, command);
                     if(check_for_num(button_id)){
                         command += int(button_id);
                     } else if(button_id == '#'){
@@ -55,7 +57,7 @@ public:
                             command = 0;
                         } else {
                             state = states::send_command;
-                            display.show_message("Start Game");
+                            display.show_message(0, 0);
                         }
                     }
                     break;

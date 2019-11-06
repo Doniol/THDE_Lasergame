@@ -82,8 +82,8 @@ public:
    /// button pressed
    /// \details
    /// Allows you to write to the input channel.
-   void button_pressed(char message) override{
-      run_input_channel.write(message);
+   void button_pressed(char button_id) override{
+      run_input_channel.write(button_id);
    }
 
    /// \brief

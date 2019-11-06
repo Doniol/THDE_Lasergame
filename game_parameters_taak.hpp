@@ -114,7 +114,7 @@ public:
                 }
                 
                 case states::wait_start:{
-                    hwlib::cout << "wait start engaged\n"
+                    hwlib::cout << "wait start engaged\n";
                     wait(message_flag);
                     hwlib::cout << "message flag accepted\n";
                     auto message = message_pool.read();

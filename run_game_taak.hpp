@@ -10,8 +10,7 @@ private:
    init_game_taak &init_game;
    display_taak &display;
    transfer_hits_taak &transfer_hits;
-   rtos::timer second_clock;
-   rtos::timer cooldown_clock;
+   rtos::clock second_clock;
    rtos::flag message_flag;
    rtos::pool< std::array<int, 2> > message_pool;
    rtos::flag parameters_flag;
@@ -43,8 +42,7 @@ public:
       init_game(init_game),
       display(display),
       transfer_hits(transfer_hits),
-      second_clock(this, "second_clock"),
-      cooldown_clock(this, "cooldown_clock"),
+      second_clock(this, 2'000'000, "second_clock"),
 	   message_flag(this, "message_flag"),
 	   message_pool("message_pool"),
       parameters_flag(this, "parameters_flag"),
@@ -69,25 +67,25 @@ public:
    void weapon_firerate(int & weapon){
       switch(weapon){
          case 0:
-            firerate = 500'000;
+            firerate = 1;
          case 1:
-            firerate = 1'500'000;
+            firerate = 2;
          case 2:
-            firerate = 2'000'000;
+            firerate = 3;
          case 3:
-            firerate = 3'000'000;
+            firerate = 4;
          case 4:
-            firerate = 4'000'000;
+            firerate = 5;
          case 5:
-            firerate = 5'000'000;
+            firerate = 6;
          case 6:
-            firerate = 8'000'000;
+            firerate = 8;
          case 7:
-            firerate = 9'000'000;
+            firerate = 9;
          case 8:
-            firerate = 12'000'000;
+            firerate = 12;
          case 9:
-            firerate = 18'000'000;
+            firerate = 18;
       }
    }
 
@@ -121,12 +119,11 @@ public:
       state = states::create_player_profile;
       gun_state = gun_states::gun_ready;
       hwlib::cout << "run game\n";
+      int reload;
       for(;;){       
          switch(state){
             case states::create_player_profile:
                hp = 100;
-               second_clock.set(1'000'000);
-               cooldown_clock.set(0);
                i = 0;
                button_id = run_input_channel.read();
                if(button_id == 'C'){
@@ -147,50 +144,60 @@ public:
                time = (par_msg[2] * 60);
                hits[0] = {player_id, weapon};
                state = states::running_game;
-               // hwlib::cout << player_id << " " << weapon << " " << time << "\n\n";
+               hwlib::cout << player_id << " " << weapon << " " << time << "\n\n";
                break;
             
             case states::running_game:{
-               auto event = wait(message_flag + second_clock + cooldown_clock + run_input_channel);
+               auto event = wait(message_flag + second_clock + run_input_channel);
+               hwlib::cout << "event\n";
                if(event == message_flag){
+                  hwlib::cout << "hit by\n";
                   message = message_pool.read();
                   hit_by = message[0];
                   enemy_weapon = message[1];
                   int enemy_damage = enemy_weapon_damage(enemy_weapon);
                   hp -= enemy_damage;
+                  hwlib::cout << hit_by << " " << weapon << " " << hp << "\n";
                   hits[i] = {hit_by, enemy_weapon};
                   i++;
-                  if(i == 30){
-                     state = states::game_over;
-                  }
-               } else if(event == second_clock){
-                  time--;
-                  if(time == 0){
+                  if(hp <= 0){
                      state = states::game_over;
                   }
                } else if(event == run_input_channel){
+                  hwlib::cout << "button pressed\n";
                   button_id = run_input_channel.read();
-                  if(button_id == 'T'){
+                  if(button_id == 'D'){
                      switch(gun_state){
                         case gun_states::gun_ready:
+                           hwlib::cout << "shoot\n";
                            send.send_message(player_id, weapon);
-                           cooldown_clock.set(firerate);
+                           reload = firerate;
                            gun_state = gun_states::gun_not_ready;
                            break;
                         
                         case gun_states::gun_not_ready:
-                           if(event == cooldown_clock){
+                           hwlib::cout << "reloading\n";
+                           if(reload <= 0){
                               gun_state = gun_states::gun_ready;
                            }
                            break;
                      }
                   }
+               } else if(event == second_clock){
+                  hwlib::cout << "second over\n";
+                  time -= 2;
+                  reload -= 2;
+                  if(time == 0){
+                     state = states::game_over;
+                  }
                }
+               display.show_message(hp, time);
                break;
             }
 
             case states::game_over:
-               display.show_message(10, 10);
+               hwlib::cout << "GAME OVER";
+               display.show_message(-1, -1);
                if(time > 0){
                   time--;
                } else {

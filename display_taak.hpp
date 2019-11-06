@@ -29,13 +29,13 @@ public:
             if(message[0] == 0){
                 if(message[1] != 0){
                     display << "Command: " << message[1] << hwlib::flush;
-                } else if(message[0] == 10 && message[1] == 10){
+                } else if(message[0] == -1 && message[1] == -1){
                     display << "GAME OVER" << hwlib::flush;
                 } else {
                     display << "Start Game" << hwlib::flush;
                 }
             } else {
-                display << "Player: " << message[0] << "\nTime: " << message[1] << hwlib::flush;
+                display << "HP: " << message[0] << "\nTime: " << message[1] << hwlib::flush;
             }
         }
     }

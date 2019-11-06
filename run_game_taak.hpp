@@ -121,6 +121,7 @@ public:
    void main() override {
       state = states::create_player_profile;
       gun_state = gun_states::gun_ready;
+      hwlib::cout << "run game\n";
       for(;;){       
          switch(state){
             case states::create_player_profile:

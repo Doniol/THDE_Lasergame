@@ -32,7 +32,7 @@ public:
         for(;;){
             char button_id;
             wait(ms100_clock);
-            if(button.read()){
+            if(!button.read()){
                 button_id = 'T';
             } else {
                 button_id = keypad.getc();

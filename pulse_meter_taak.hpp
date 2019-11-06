@@ -147,11 +147,9 @@ public:
                     // the temporary array is saved to the variable called "test_array" to be sent to the decoder
                     // The end of the message resets the STD and returns to the default state of start_pulse_meter
                     } else if(event == pause_timer){
-                        if(event == pause_timer){
-                            test_array = temp_array;
-                            decoder.decode(array, test_array);
-                            state = states::start_pulse_meter;
-                        }
+                        test_array = temp_array;
+                        decoder.decode(array, test_array);
+                        state = states::start_pulse_meter;
                     }
                     break;
                 }

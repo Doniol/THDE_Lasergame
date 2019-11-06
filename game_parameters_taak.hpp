@@ -3,10 +3,22 @@
 
 #include "IR.hpp"
 
+/// @file
+
+/// \brief
+/// parameter listener
+/// \details
+/// This class waits for the message flag an sends the message.
+
 class parameters_listener{
 public:
     virtual void player_parameters(int player, int weapon, int time) = 0;
 };
+
+/// \brief
+/// game parameter task
+/// \details
+/// This class makes a player and gives them a weapon and time.
 
 class game_parameters_taak : public rtos::task<>, public invoer_listener, public decoder_listener{
 private:
@@ -19,6 +31,10 @@ private:
     parameters_listener* listener;
 
 public:
+    /// \brief
+    /// game parameter constructor
+    /// \details
+    /// Makes a channel, a pool and 2 flags.
     game_parameters_taak():
         task("game_parameters"),
         parameters_input_channel(this, "parameters_input_channel"),
@@ -27,27 +43,50 @@ public:
         run_parameters_flag(this, "run_parameters_flag")
     {}
 
+    /// \brief
+    /// add listener
+    /// \details
+    /// sets the listener.
     void add_listener(parameters_listener* given_listener){
         listener = given_listener;
     }
 
+    /// \brief
+    /// send player parameters
+    /// \details
+    /// sends the player parameters
     void send_player_parameters(int player, int weapon, int time){
         listener->player_parameters(player, weapon, time);
     }
 
+    /// \brief
+    /// button pressed
+    /// \details
+    /// Allows you to write to the input channel.
     void button_pressed(char button_id) override{
         parameters_input_channel.write(button_id);
     }
 
+    /// \brief
+    /// signal log
+    /// \details
+    /// Allows you to write to the message pool and set the message flag.
     void signal_log(int player, int data) override{
         message_pool.write({player, data});
         message_flag.set();
     }
 
+    /// \brief
+    /// run game parameters
+    /// \details
+    /// Allows you to set the run game flag
     void run_game_parameters(){
         run_parameters_flag.set();
     }
-
+    /// \brief
+    /// check for num
+    /// \details
+    /// checks if the character is a number.
     bool check_for_num(char button_id){
         if(button_id != '*' && button_id != '#' && button_id != 'A' && button_id != 'B' && button_id != 'C' && button_id != 'D'){
             return true;

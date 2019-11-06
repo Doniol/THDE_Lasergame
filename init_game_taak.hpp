@@ -3,6 +3,14 @@
 
 #include "IR.hpp"
 
+/// @file
+
+
+/// \brief
+/// Makes a game leader
+/// \details
+///  This taks makes a game leader
+
 class init_game_taak : public rtos::task<>, public invoer_listener{
 private:
     rtos::channel<char, 10> init_input_channel;
@@ -13,6 +21,11 @@ private:
     states state;
 
 public:
+    /// \brief
+    /// init game constructor
+    /// \details
+    /// A channel and a flag
+
     init_game_taak(send_taak &send, display_taak &display):
         task("init_game_taak"),
         init_input_channel(this, "init_input_channel"),
@@ -20,15 +33,27 @@ public:
         display(display),
         send(send)
     {}
+    /// \brief
+    /// run_init_game_control
+    /// \details
+    /// Allows the user to set the run_init_game_flag
 
     void run_init_game_control(){
         run_init_game_flag.set();
     }
-
+    /// \brief
+    /// button_pressed
+    /// \details
+    /// Allows the user to write to the input_channel
+ 
     void button_pressed(char button_id) override{
         init_input_channel.write(button_id);
     }
 
+    /// \brief
+    /// checks if number
+    /// \details
+    /// checks if the button presses is a button
     bool check_for_num(char button_id){
         if(button_id != '*' && button_id != '#' && button_id != 'A' && button_id != 'B' && button_id != 'C' && button_id != 'D'){
             return true;

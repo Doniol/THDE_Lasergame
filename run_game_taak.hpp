@@ -52,9 +52,10 @@ public:
       run_input_channel(this, "run_input_channel")
    {}
 
-   void signal_log(int player, int weapon) override{
-      message_pool.write({player, weapon});
+   void signal_log(int player, int data) override{
+      message_pool.write({player, data});
       message_flag.set();
+      hwlib::cout << player << " " << data;
    }
 
    void player_parameters(int player, int weapon, int time) override{
@@ -130,7 +131,6 @@ public:
                button_id = run_input_channel.read();
                if(button_id == 'C'){
                   init_game.run_init_game_control();
-                  state = states::create_player_profile;
                }
                else if(button_id == 'A'){
                   game_parameters.add_listener(this);
@@ -147,6 +147,7 @@ public:
                time = (par_msg[2] * 60);
                hits[0] = {player_id, weapon};
                state = states::running_game;
+               hwlib::cout << player_id << " " << weapon << " " << time << "\n\n";
                break;
             
             case states::running_game:{
@@ -162,16 +163,10 @@ public:
                   if(i == 30){
                      state = states::game_over;
                   }
-                  else{
-                     state = states::running_game;
-                  }
                } else if(event == second_clock){
                   time--;
                   if(time == 0){
                      state = states::game_over;
-                  }
-                  else{
-                     state = states::running_game;
                   }
                } else if(event == run_input_channel){
                   button_id = run_input_channel.read();

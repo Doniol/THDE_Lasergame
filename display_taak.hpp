@@ -5,7 +5,7 @@
 
 class display_taak : public rtos::task<>{
 private:
-    rtos::channel<std::array<int, 3>, 10> message_channel;
+    rtos::channel<std::array<int, 2>, 10> message_channel;
     hwlib::glcd_oled &oled;
 
 public:
@@ -24,6 +24,8 @@ public:
         auto display = hwlib::terminal_from(oled, font);
         for(;;){
             auto message = message_channel.read();
+            oled.clear();
+            display << "\f" << hwlib::flush;
             if(message[0] == 0){
                 if(message[1] != 0){
                     display << "Command: " << message[1] << hwlib::flush;

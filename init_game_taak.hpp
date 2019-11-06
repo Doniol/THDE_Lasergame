@@ -44,7 +44,7 @@ public:
             switch(state){
                 case states::idle:
                     wait(run_init_game_flag);
-                    command = 0;
+                    command = 1;
                     button_id = init_input_channel.read();
                     if(button_id == 'C'){
                         state = states::get_command;
@@ -52,25 +52,31 @@ public:
                     break;
                 
                 case states::get_command:
-                    button_id = init_input_channel.read();
                     display.show_message(0, command);
+                    button_id = init_input_channel.read();
                     if(check_for_num(button_id)){
-                        command += int(button_id);
+                        hwlib::cout << command << " += " << button_id;
+                        command += button_id - '0';
+                        hwlib::cout << " = " << command << "\n";
                     } else if(button_id == '#'){
-                        if(command > 16 || command < 1){
-                            command = 0;
+                        hwlib::cout << " is # ";
+                        if(command > 16){
+                            command = 1;
+                            hwlib::cout << " command = 0 ";
                         } else {
                             state = states::send_command;
                             display.show_message(0, 0);
+                            hwlib::cout << " command is ok ";
                         }
                     }
                     break;
                 
                 case states::send_command:
-                    send.send_message(0, command);
                     button_id = init_input_channel.read();
                     if(button_id == '*'){
                         state = states::send_start;
+                    } else if(button_id == '#'){
+                        send.send_message(0, command);
                     }
                     break;
 

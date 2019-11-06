@@ -20,7 +20,7 @@ int main(){
     auto in_port = hwlib::port_in_from(in0, in1, in2, in3);
     auto matrix = hwlib::matrix_of_switches(out_port, in_port);
 
-    auto keypad = hwlib::keypad<16>(matrix, "147*369#2580ABCD");
+    auto keypad = hwlib::keypad<16>(matrix, "147*2580369#ABCD");
     auto button = hwlib::target::pin_in(hwlib::target::pins::d13);
 
     auto scl = hwlib::target::pin_oc(hwlib::target::pins::scl);

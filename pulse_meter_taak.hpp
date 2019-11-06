@@ -3,7 +3,14 @@
 
 #include "IR.hpp"
 
-// Class for receiving data from the IR-Sensor
+
+/// @file
+
+/// \brief
+/// pulse_meter_taak class
+/// \details
+///Class for receiving data from the IR-Sensor
+
 class pulse_meter_taak : public rtos::task<>{
 private:
     // Pins to which the IR-sensor is connected
@@ -20,7 +27,12 @@ private:
     states state;
 
 public:
-    // Constructor for task
+
+    /// \brief
+    /// Constructor for task
+    /// \details
+    /// This constructor makes a clock, and a timer, and variables 
+
     pulse_meter_taak(decoder_taak &decoder, hwlib::target::pin_in &sensor, hwlib::target::pin_out &gnd, hwlib::target::pin_out &vdd):
         task("pulse_meter"),
         sensor(sensor),

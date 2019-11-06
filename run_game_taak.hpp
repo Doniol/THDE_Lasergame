@@ -141,6 +141,7 @@ public:
                par_msg = parameters_pool.read();
                player_id = par_msg[0];
                weapon = par_msg[1];
+	       //weapon_firerate(weapon);
                time = (par_msg[2] * 60);
                hits[0] = {player_id, weapon};
                state = states::running_game;

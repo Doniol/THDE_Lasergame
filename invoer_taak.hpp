@@ -3,11 +3,21 @@
 
 #include "IR.hpp"
 
+/// @file
+
+/// \brief
+/// input listener
+/// \details
+/// This class is a listener.
 class invoer_listener{
 public:
     virtual void button_pressed(char button_id) = 0;
 };
 
+/// \brief
+/// input task
+/// \details
+/// This class waits for the message flag an sends the message
 class invoer_taak : public rtos::task<>{
 private:
     hwlib::keypad<16> keypad;
@@ -16,6 +26,10 @@ private:
     invoer_listener &init_game, &run_game, &game_parameters, &transfer_hits;
 
 public:
+    /// \brief
+    /// input task constructor
+    /// \details
+    /// Makes a clock.
     invoer_taak(hwlib::keypad<16> keypad, hwlib::target::pin_in button, invoer_listener &init,
                 invoer_listener &run, invoer_listener &game, invoer_listener &hits):
         task("invoer_taak"),

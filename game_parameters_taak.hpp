@@ -8,7 +8,7 @@
 /// \brief
 /// parameter listener
 /// \details
-/// This class waits for the message flag an sends the message.
+/// This class is a listener.
 
 class parameters_listener{
 public:
@@ -107,7 +107,6 @@ public:
                 case states::wait_new_game:
                     wait(run_parameters_flag);
                     hwlib::cout << "Parameters start\n\n";
-                    button_id = parameters_input_channel.read();
                     state = states::get_player_id;
                     break;
                 

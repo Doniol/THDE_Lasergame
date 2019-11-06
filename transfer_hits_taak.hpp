@@ -3,6 +3,12 @@
 
 #include "IR.hpp"
 
+/// @file
+
+/// \brief
+/// transfer hits task
+/// \details
+/// Transfers all hits to a pc using couts.
 class transfer_hits_taak : public rtos::task<>, public invoer_listener{
 private:
     struct data{std::array<std::array<int, 2>, 30> hits; int player_id;};
@@ -13,18 +19,30 @@ private:
     states state;
 
 public:
+    /// \brief
+    /// transfer hits constructor
+    /// \details
+    /// Makes a pool and 2 flags.
     transfer_hits_taak():
         game_done_pool("game_done_pool"),
         game_done_flag(this, "game_done_flag"),
         trigger_pressed_flag(this, "trigger_pressed_flag")
     {}
-
+    
+    /// \brief
+    /// button pressed
+    /// \details
+    /// Allows you to set the trigger pressed flag.
     void button_pressed(char button_id) override{
         if(button_id == 'T'){
             trigger_pressed_flag.set();
         }
     }
 
+    /// \brief
+    /// signal log
+    /// \details
+    /// Allows you to write to the game done pool.
     void game_done(std::array<std::array<int, 2>, 30> hits, int player_id){
         data input = {hits, player_id};
         game_done_pool.write(input);

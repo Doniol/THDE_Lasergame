@@ -33,6 +33,9 @@ public:
     void decode(std::array<int, 16> array, std::array<int, 16> test_array){
         bits_pool.write({array, test_array});
         bits_flag.set();
+        // for(unsigned int i = 0; i < 16; i++){
+        //     hwlib::cout << array[i] << " " << test_array[i] << "\n";
+        // }
     }
 
     // Function to compare 2 arrays and returns whether they're the same or not
@@ -85,7 +88,7 @@ public:
             auto array = arrays[0];
             auto test_array = arrays[1];
             // Compare the two arrays and check whether the first bit of the array is 1, if not: immediatly reset the for-loop
-            if(!compare_arrays(array, test_array) || array[0] != 1){
+            if(!compare_arrays(array, test_array)){
                 continue;
             }
 

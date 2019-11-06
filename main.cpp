@@ -40,5 +40,15 @@ int main(){
     auto pulse_meter = pulse_meter_taak(decoder, tsop_signal, tsop_gnd, tsop_vdd);
     auto input = invoer_taak(keypad, button, init_game, run_game, game_parameters, transfer_hits);
 
+    (void)display;
+    (void)transfer_hits;
+    (void)input;
+    (void)init_game;
+    (void)game_parameters;
+    (void)run_game;
+    (void)decoder;
+    (void)send;
+    (void)pulse_meter;
+
     rtos::run();
 }

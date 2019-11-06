@@ -42,7 +42,6 @@ public:
     void signal_log(int player, int data) override{
         message_pool.write({player, data});
         message_flag.set();
-        hwlib::cout << player << " " << data;
     }
 
     void run_game_parameters(){

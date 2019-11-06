@@ -55,7 +55,6 @@ public:
    void signal_log(int player, int data) override{
       message_pool.write({player, data});
       message_flag.set();
-      hwlib::cout << player << " " << data;
    }
 
    void player_parameters(int player, int weapon, int time) override{
@@ -148,7 +147,7 @@ public:
                time = (par_msg[2] * 60);
                hits[0] = {player_id, weapon};
                state = states::running_game;
-               hwlib::cout << player_id << " " << weapon << " " << time << "\n\n";
+               // hwlib::cout << player_id << " " << weapon << " " << time << "\n\n";
                break;
             
             case states::running_game:{

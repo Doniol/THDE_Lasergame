@@ -3,47 +3,33 @@
 
 #include "IR.hpp"
 
-/// @file
-
-/// \brief
-/// send task
-/// \details
-/// This class waits for the message flag an sends the message
-
 class send_taak : public rtos::task<>{
 private:
     rtos::pool<std::array<int, 2>> message_pool;
     rtos::flag message_flag;
     hwlib::target::d2_36kHz ir;
     std::array<int, 16> signal_array;
+    rtos::timer timed_out;
+    rtos::timer sender;
     enum class states{idle, signal};
     states state;
 
 public:
-    /// \brief
-    /// send task constructor
-    /// \details
-    /// A pool and a flag.
     send_taak():
         task("send_taak"),
         message_pool("message_pool"),
-        message_flag(this, "message_flag")
+        message_flag(this, "message_flag"),
+        timed_out(this, "timed_out timer"),
+        sender(this, "sender timer")
     {}
-    /// \brief
-    /// sends message
-    /// \details
-    /// Allows you to write to the message pool and set the message flag.
+
     void send_message(int player, int data){
         message_pool.write({player, data});
         message_flag.set();
     }
 
-    /// \brief
-    /// converts to binary
-    /// \details
-    /// Converts 2 ints to binary and calculates the xor.
     void fill_array(std::array< int, 16 > & array, const uint8_t player, const uint8_t data){
-        array[0] = 0;
+        array[0] = 1;
         for(unsigned int i = 0; i < (array.size() - 11); i++){ 
             array[5 - i] = (player >> i) & 1;
         }
@@ -55,22 +41,22 @@ public:
         }
     }
 
-    /// \brief
-    /// converts to signals
-    /// \details
-    /// Converts binary to ir signals.
     void beep(std::array< int, 16 > & array, hwlib::target::d2_36kHz & ir){ 
         for(unsigned int i = 0; i < array.size(); i++){ 
             if(array[i] == 0){
                 ir.write(1);
-                hwlib::wait_us_busy(800);
+                sender.set(800);
+                wait(sender);
                 ir.write(0);
-                hwlib::wait_us_busy(1'600);
+                sender.set(1'600);
+                wait(sender);
             } else {
                 ir.write(1);
-                hwlib::wait_us_busy(1'600);
+                sender.set(1'600);
+                wait(sender);
                 ir.write(0);
-                hwlib::wait_us_busy(800);
+                sender.set(800);
+                wait(sender);
             }
         }
     }
@@ -89,7 +75,8 @@ public:
                     msg = message_pool.read();
                     fill_array(signal_array, msg[0], msg[1]);
                     beep(signal_array, ir);
-                    hwlib::wait_us_busy(3'000);
+                    timed_out.set(3'000);
+                    wait(timed_out);
                     beep(signal_array, ir);
                     state = states::idle;
                     break;

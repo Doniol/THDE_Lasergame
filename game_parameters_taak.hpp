@@ -16,17 +16,24 @@ private:
     rtos::flag run_parameters_flag;
     enum class states{wait_new_game, get_player_id, get_weapon, wait_time, wait_start};
     states state;
-    parameters_listener &run_game;
+    parameters_listener* listener;
 
 public:
-    game_parameters_taak(parameters_listener &run_game):
+    game_parameters_taak():
         task("game_parameters"),
         parameters_input_channel(this, "parameters_input_channel"),
         message_pool("message_pool"),
         message_flag(this, "message_flag"),
-        run_parameters_flag(this, "run_parameters_flag"),
-        run_game(run_game)
+        run_parameters_flag(this, "run_parameters_flag")
     {}
+
+    void add_listener(parameters_listener* given_listener){
+        listener = given_listener;
+    }
+
+    void send_player_parameters(int player, int weapon, int time){
+        listener->player_parameters(player, weapon, time);
+    }
 
     void button_pressed(char button_id) override{
         parameters_input_channel.write(button_id);
@@ -99,7 +106,7 @@ public:
                     player = message[0];
                     data = message[1];
                     if(player == 0 && data == 0){
-                        run_game.player_parameters(player_id, weapon, time);
+                        send_player_parameters(player_id, weapon, time);
                         state = states::wait_new_game;
                     }
                     break;

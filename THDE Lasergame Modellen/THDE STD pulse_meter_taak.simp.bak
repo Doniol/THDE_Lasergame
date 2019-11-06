@@ -19,7 +19,7 @@
     <entity-ids>
       <counter>
         <item-type type-id="group" type="AbstractElementGroup" />
-        <value>503</value>
+        <value>641</value>
       </counter>
       <counter>
         <item-type type-id="state" type="UmlState" />
@@ -116,19 +116,20 @@
           <item id="514907f6fcf349658c16d7f210d3a3fb" cid="ST003" type="state" name="start_pulse_meter" style-class="" visibility="package" change-tracking-state="added" creation-date="10/31/2019 13:38:17">
             <state-invariant />
             <actions>
-              <action id="sa-84f59bd1-9478-4c26-b0a5-d5f5aa975f81" name="entry" behavior="sensor = ir_sensor" />
-              <action id="sa-35249cc0-1612-4544-8bca-85ca634b1498" name="entry" behavior="array&lt;int, 16&gt; array" />
-              <action id="sa-61e1c5e1-90f2-414b-8171-c03c19d0a241" name="entry" behavior="array&lt;int, 16&gt; test_array" />
               <action id="sa-df8b35f6-1f25-4cf5-b5ef-a21042c2f834" name="entry" behavior="i = 0" />
-              <action id="sa-135e0614-8305-4160-adaa-1a07663e5b5c" name="entry" behavior="100usclock" />
-              <action id="sa-c9155b3e-ad85-4dd2-a570-febc081ac2f9" name="entry" behavior="array&lt;int, 16&gt; temp_array" />
+              <action id="sa-0a4514bc-b44d-4d27-bb60-330b360bf575" name="readin" behavior="sensor.read()" />
             </actions>
             <source-codes>
               <source-code language="ActionScript" uid="scs-0d0bfb45-2fcc-4070-b2f9-1112e34f50a9" />
             </source-codes>
           </item>
           <item id="37d76ed337f34dd9aae1969a3b6ea514" cid="ELEM004" type="general-transition" name="" style-class="" visibility="package" change-tracking-state="added" creation-date="10/31/2019 13:39:47" from="0eb1e26e8b674ba0baf8fd052a7db4f1" to="514907f6fcf349658c16d7f210d3a3fb">
-            <transition guard="" behaviourExpression="" />
+            <transition guard="" behaviourExpression="">
+              <trigger>int startsignal; int endsignal; int i; int reading; std::array&lt;int</trigger>
+              <trigger>16&gt; array; std::array&lt;int</trigger>
+              <trigger>16&gt; test_array; std::array&lt;int</trigger>
+              <trigger>16&gt; temp_array</trigger>
+            </transition>
           </item>
           <item id="5b83188aaf01497bb1735f2018568b0a" cid="ST004" type="state" name="waiting_for_signal" style-class="" visibility="package" change-tracking-state="added" creation-date="10/31/2019 13:42:06">
             <state-invariant />
@@ -137,13 +138,13 @@
             </actions>
           </item>
           <item id="15c649cffd5f498e9bb2e59ed603289f" cid="ELEM005" type="general-transition" name="" style-class="" visibility="package" change-tracking-state="added" creation-date="10/31/2019 13:42:26" from="514907f6fcf349658c16d7f210d3a3fb" to="5b83188aaf01497bb1735f2018568b0a">
-            <transition guard="sensor.read() == 1" behaviourExpression="">
-              <trigger>100us_clock</trigger>
+            <transition guard="reading == 1" behaviourExpression="">
+              <trigger>us100_clock</trigger>
             </transition>
           </item>
           <item id="f62dd66c628546428c9d21051a0a892b" cid="ELEM006" type="general-transition" name="" style-class="" visibility="package" change-tracking-state="added" creation-date="10/31/2019 13:43:11" from="5b83188aaf01497bb1735f2018568b0a" to="5b83188aaf01497bb1735f2018568b0a">
             <transition guard="reading == 1" behaviourExpression="">
-              <trigger>100us_clock</trigger>
+              <trigger>us100_clock</trigger>
             </transition>
           </item>
           <item id="046539b2a1104a4daf2eebf8445720f3" cid="ST005" type="state" name="signal_received" style-class="" visibility="package" change-tracking-state="added" creation-date="10/31/2019 13:44:22">
@@ -157,7 +158,7 @@
           </item>
           <item id="e4240bddd471445ababbe3a375290bbb" cid="ELEM007" type="general-transition" name="" style-class="" visibility="package" change-tracking-state="added" creation-date="10/31/2019 13:45:04" from="5b83188aaf01497bb1735f2018568b0a" to="046539b2a1104a4daf2eebf8445720f3">
             <transition guard="reading == 0" behaviourExpression=" startsignal = now_us()">
-              <trigger />
+              <trigger>us100_clock</trigger>
             </transition>
           </item>
           <item id="7f92412098d247f39f9b3063fad269fe" cid="ELEM008" type="general-transition" name="" style-class="" visibility="package" change-tracking-state="added" creation-date="10/31/2019 13:46:37" from="046539b2a1104a4daf2eebf8445720f3" to="046539b2a1104a4daf2eebf8445720f3">
@@ -166,8 +167,8 @@
             </transition>
           </item>
           <item id="343978cb513c4686b613c4e87d82a90e" cid="ELEM013" type="general-transition" name="" style-class="" visibility="package" change-tracking-state="added" creation-date="10/31/2019 14:00:57" from="046539b2a1104a4daf2eebf8445720f3" to="a467c0e1577e4ebb8c25ec24782ee98e">
-            <transition guard="reading == 1" behaviourExpression=" endsignal = now_us(); signaltime = endsignal - startsignal; pause_timer.set(3000)">
-              <trigger />
+            <transition guard="reading == 1" behaviourExpression=" endsignal = now_us(); signaltime = endsignal - startsignal; pause_timer.set(4600)">
+              <trigger>us100_clock</trigger>
             </transition>
           </item>
           <item id="78d74fa4ca01422ab1545a58d6971060" cid="ELEM016" type="general-transition" name="" style-class="" visibility="package" change-tracking-state="added" creation-date="10/31/2019 14:03:59" from="e36296d09b24474d889cee87f080490a" to="3b84e7d7f75047af8cd22fcf9048a974">
@@ -230,16 +231,16 @@
         </abstract-items>
         <layer id="0c67331cb9864b538e3e11c0d48d70bb" name="Default" visible="true" enabled="true" locked="false">
           <item id="0eb1e26e8b674ba0baf8fd052a7db4f1" iid="86b8158fd1d64a7b9387f4218546f42a" anchor="None" creation-date="10/31/2019 13:38:06" order-index="4" type="entity">
-            <layout ax="255" ay="206.5" awidth="25" aheight="25" x="255" y="206.5" width="25" height="25" name-position="0,10" name-anchor="bottom" auto-anchor="true" label-attached="false" />
+            <layout ax="142" ay="206.5" awidth="25" aheight="25" x="142" y="206.5" width="25" height="25" name-position="0,10" name-anchor="bottom" auto-anchor="true" label-attached="false" />
           </item>
           <item id="514907f6fcf349658c16d7f210d3a3fb" iid="f255de9e705849338da04eaa3c03417b" anchor="None" creation-date="10/31/2019 13:38:17" order-index="5" type="entity">
-            <layout ax="483" ay="154.5" awidth="225" aheight="129" x="483" y="154.5" width="225" height="129" />
+            <layout ax="489" ay="186.5" awidth="225" aheight="65" x="489" y="186.5" width="225" height="65" />
           </item>
           <item id="37d76ed337f34dd9aae1969a3b6ea514" iid="ae2901bcd683487aab54683e5419de64" creation-date="10/31/2019 13:39:47" order-index="6" type="relation">
-            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="280" y1="219" x2="483" y2="219" start-border-pos="0.375" end-border-pos="0.875" name-position="0,0">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="167" y1="219" x2="489" y2="219" start-border-pos="0.375" end-border-pos="0.875" name-position="-1,67.5" name-width="283">
               <points>
-                <point x="280" y="219" />
-                <point x="483" y="219" />
+                <point x="167" y="219" />
+                <point x="489" y="219" />
               </points>
             </layout>
             <relation from="0eb1e26e8b674ba0baf8fd052a7db4f1" from-iid="86b8158fd1d64a7b9387f4218546f42a" to="514907f6fcf349658c16d7f210d3a3fb" to-iid="f255de9e705849338da04eaa3c03417b" />
@@ -248,9 +249,9 @@
             <layout ax="871.5" ay="186.5" awidth="234" aheight="65" x="871.5" y="186.5" width="234" height="65" />
           </item>
           <item id="15c649cffd5f498e9bb2e59ed603289f" iid="fc6b867268de46e2af9414a19cf76252" creation-date="10/31/2019 13:42:26" order-index="8" type="relation">
-            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="708" y1="219" x2="872" y2="219" start-border-pos="0.375" end-border-pos="0.875" name-position="0,-5">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="714" y1="219" x2="872" y2="219" start-border-pos="0.375" end-border-pos="0.875" name-position="1,-4" name-width="117">
               <points>
-                <point x="708" y="219" />
+                <point x="714" y="219" />
                 <point x="872" y="219" />
               </points>
             </layout>
@@ -271,7 +272,7 @@
             <layout ax="882" ay="388.5" awidth="213" aheight="50" x="882" y="388.5" width="213" height="50" />
           </item>
           <item id="e4240bddd471445ababbe3a375290bbb" iid="a48f321477454c20bc812228b45c9106" creation-date="10/31/2019 13:45:04" order-index="11" type="relation">
-            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="988" y1="252" x2="988" y2="388" start-border-pos="0.625534188034188" end-border-pos="0.124413145539906" name-position="58,18" name-width="110">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="988" y1="252" x2="988" y2="388" start-border-pos="0.625534188034188" end-border-pos="0.124413145539906" name-position="97,14" name-width="192">
               <points>
                 <point x="988" y="252" />
                 <point x="988" y="388" />
@@ -291,7 +292,7 @@
             <relation from="046539b2a1104a4daf2eebf8445720f3" from-iid="a4a24b214e614bf0823aa057c8586cf5" to="046539b2a1104a4daf2eebf8445720f3" to-iid="a4a24b214e614bf0823aa057c8586cf5" />
           </item>
           <item id="343978cb513c4686b613c4e87d82a90e" iid="f9b5ec51e6ca472a88e075009144269c" creation-date="10/31/2019 14:00:57" order-index="19" type="relation">
-            <layout line-style="oblique" lock-start-point="false" lock-end-point="true" lock-to-fields="false" auto-path="" x1="988" y1="438" x2="988" y2="599" start-border-pos="0.625586854460094" end-border-pos="0.121875002980232" name-position="138,40" name-width="278">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="true" lock-to-fields="false" auto-path="" x1="988" y1="438" x2="988" y2="599" start-border-pos="0.625586854460094" end-border-pos="0.121875002980232" name-position="158,27" name-width="310">
               <points>
                 <point x="988" y="438" />
                 <point x="988" y="599" />
@@ -309,7 +310,7 @@
             <relation from="e36296d09b24474d889cee87f080490a" from-iid="cfc8e15a45ed4a19a732d2a762e7eed3" to="3b84e7d7f75047af8cd22fcf9048a974" to-iid="b0cd2b2d176b4051b827a56d31f13562" />
           </item>
           <item id="5dd3de00e830438c884e04ed15a3570d" iid="28063b56915d410789179d5e8f0ed71d" creation-date="10/31/2019 14:18:02" order-index="30" type="relation">
-            <layout line-style="oblique" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="968" y1="631" x2="780" y2="631" start-border-pos="0.875" end-border-pos="0.375" name-position="8,50" name-width="126">
+            <layout line-style="oblique" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="968" y1="631" x2="780" y2="631" start-border-pos="0.875" end-border-pos="0.375" name-position="7,41" name-width="142">
               <points>
                 <point x="968" y="631" />
                 <point x="780" y="631" />
@@ -358,13 +359,13 @@
             <layout ax="968.5" ay="598.5" awidth="40" aheight="65" x="968.5" y="598.5" width="40" height="65" name-position="0,10" name-anchor="bottom" auto-anchor="true" label-attached="false" />
           </item>
           <item id="35d42adc036341e7885c92a0edecf2bc" iid="d6b6b0a1097d49d5a84e8ee228eb5fb2" creation-date="11/02/2019 14:07:38" order-index="45" type="relation">
-            <layout line-style="oblique" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="1007" y1="630" x2="483" y2="284" start-border-pos="0.371153846383095" end-border-pos="0.75" name-position="392,-281">
+            <layout line-style="oblique" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="1007" y1="630" x2="489" y2="252" start-border-pos="0.371153846383095" end-border-pos="0.75" name-position="392,-281">
               <points>
                 <point x="1007" y="630" />
                 <point x="1095" y="629" />
                 <point x="1095" y="933" />
-                <point x="487" y="929" />
-                <point x="483" y="284" />
+                <point x="488" y="927" />
+                <point x="489" y="252" />
               </points>
             </layout>
             <relation from="a467c0e1577e4ebb8c25ec24782ee98e" from-iid="4840f3de488d4fb5a2eacf4636e9aa98" to="514907f6fcf349658c16d7f210d3a3fb" to-iid="f255de9e705849338da04eaa3c03417b" />
@@ -393,10 +394,10 @@
             <relation from="3b84e7d7f75047af8cd22fcf9048a974" from-iid="b0cd2b2d176b4051b827a56d31f13562" to="5b83188aaf01497bb1735f2018568b0a" to-iid="2313a26839f94850a6cd1cef323229ec" />
           </item>
           <item id="3394b3c04b0f4ff08d949e5744c093b1" iid="124e71f865f048d38d69f51e4f40fdf4" creation-date="11/02/2019 14:19:39" order-index="49" type="relation">
-            <layout line-style="oblique" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="712" y1="381" x2="708" y2="284" start-border-pos="0.170187786221504" end-border-pos="0.5" name-position="-86,41" name-width="177">
+            <layout line-style="oblique" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="712" y1="381" x2="714" y2="252" start-border-pos="0.170187786221504" end-border-pos="0.5" name-position="-86,41" name-width="177">
               <points>
                 <point x="712" y="381" />
-                <point x="708" y="284" />
+                <point x="714" y="252" />
               </points>
             </layout>
             <relation from="3b84e7d7f75047af8cd22fcf9048a974" from-iid="b0cd2b2d176b4051b827a56d31f13562" to="514907f6fcf349658c16d7f210d3a3fb" to-iid="f255de9e705849338da04eaa3c03417b" />

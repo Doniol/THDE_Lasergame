@@ -23,7 +23,7 @@
     <entity-ids>
       <counter>
         <item-type type-id="group" type="AbstractElementGroup" />
-        <value>954</value>
+        <value>1137</value>
       </counter>
       <counter>
         <item-type type-id="initial-state" type="UmlInitialState" />
@@ -39,11 +39,15 @@
       </counter>
       <counter>
         <item-type type-id="general-transition" type="UmlTransition" />
-        <value>16</value>
+        <value>17</value>
       </counter>
       <counter>
         <item-type type-id="text" type="AbstractTextItem" />
         <value>6</value>
+      </counter>
+      <counter>
+        <item-type type-id="decision" type="UmlDecision" />
+        <value>2</value>
       </counter>
     </entity-ids>
     <diagrams>
@@ -98,7 +102,7 @@
       </meta>
       <abstract-items />
       <sub-models />
-      <diagram type="uml-statechart" id="pb78770cf07c74570913ac9b5fe29badc_223220400" name="StateMachineDiagram1" order-index="1" uid="" show-id="false" show-name="true" show-parent-name="false" name-style="local-auto-parents" show-stereotypes="true" show-tagged-values="false" show-template-parameters="true" show-fields="true" show-empty-compartments="true" show-special-indicators="false" show-attributes="true" show-attribute-visibility="true" show-operations="true" show-operation-parameters="true" show-operation-visibility="true" show-nullability="true" show-sequence-number="false" show-extension-points="false" show-relationship-texts="true" show-description="false" show-field-description="false" auto-routed-paths="false" view-location="-190,-56" zoom="0.9">
+      <diagram type="uml-statechart" id="pb78770cf07c74570913ac9b5fe29badc_223220400" name="StateMachineDiagram1" order-index="1" uid="" show-id="false" show-name="true" show-parent-name="false" name-style="local-auto-parents" show-stereotypes="true" show-tagged-values="false" show-template-parameters="true" show-fields="true" show-empty-compartments="true" show-special-indicators="false" show-attributes="true" show-attribute-visibility="true" show-operations="true" show-operation-parameters="true" show-operation-visibility="true" show-nullability="true" show-sequence-number="false" show-extension-points="false" show-relationship-texts="true" show-description="false" show-field-description="false" auto-routed-paths="false" view-location="-90,-146" zoom="0.9">
         <style>
           <background-color index="1" color="#FFFFFFFF" />
           <background-color index="2" color="#FFFFFFFF" />
@@ -110,7 +114,7 @@
           </authors>
           <description />
           <creation-date>10/31/2019 20:23:33</creation-date>
-          <change-date>11/03/2019 20:07:14</change-date>
+          <change-date>11/06/2019 22:08:58</change-date>
           <revision-count>0</revision-count>
           <version />
         </meta>
@@ -132,12 +136,14 @@
           </item>
           <item id="d3612ecee3eb4f8584a8769a4d0d8db6" cid="IS002" type="initial-state" name="" style-class="" visibility="package" change-tracking-state="added" creator="P02143292f0754bf1beaeea157447bdd5" creation-date="10/31/2019 20:27:46" />
           <item id="8cbbc53aeb6c4b638884d9fa04d0d164" cid="ELEM002" type="general-transition" name="" style-class="" visibility="package" change-tracking-state="added" creator="P02143292f0754bf1beaeea157447bdd5" creation-date="10/31/2019 20:27:59" from="d3612ecee3eb4f8584a8769a4d0d8db6" to="fd224af676c342768feb9a349676b9bf">
-            <transition guard="" behaviourExpression="" />
+            <transition guard="" behaviourExpression="">
+              <trigger>char button_id; int command;</trigger>
+            </transition>
           </item>
           <item id="fd224af676c342768feb9a349676b9bf" cid="ST004" type="state" name="idle" style-class="" visibility="package" change-tracking-state="added" creator="P02143292f0754bf1beaeea157447bdd5" creation-date="10/31/2019 20:27:50">
             <state-invariant />
             <actions>
-              <action id="sa-70210a18-5080-4624-92cf-dbc4e427365f" name="entry" behavior="command = 0" />
+              <action id="sa-70210a18-5080-4624-92cf-dbc4e427365f" name="entry" behavior="command = 1" />
               <action id="sa-3235641e-17fb-45c9-a773-ad987b946a24" name="entry" behavior="button_id = init_input_channel.read()" />
             </actions>
           </item>
@@ -179,36 +185,34 @@
                 </alternate-style>
               </alternate-styles>
             </style>
-            <transition guard="button_id ==[0-9]" behaviourExpression="    command += button_id">
+            <transition guard="button_id ==number" behaviourExpression=" command += button_id">
               <trigger>init_input_channel</trigger>
             </transition>
           </item>
-          <item id="9d59e0afe6914ba7b7cc658fa18e0a3a" cid="ELEM008" type="general-transition" name="" style-class="" visibility="package" change-tracking-state="added" creator="P02143292f0754bf1beaeea157447bdd5" creation-date="10/31/2019 20:43:05" from="960c7f795ef64fceb4740ba89665e01f" to="e5ac4e3b24a94f3684f72e7ea5a59bcb">
-            <transition guard="button_id == # &amp;&amp; command &lt;16 &amp;&amp; command &gt; 1" behaviourExpression="">
-              <trigger>init_input_channel</trigger>
+          <item id="9d59e0afe6914ba7b7cc658fa18e0a3a" cid="ELEM008" type="general-transition" name="" style-class="" visibility="package" change-tracking-state="added" creator="P02143292f0754bf1beaeea157447bdd5" creation-date="10/31/2019 20:43:05" from="f8cd0c3bf7304b69ac616fa1edc3e111" to="e5ac4e3b24a94f3684f72e7ea5a59bcb">
+            <transition guard="command &lt;16" behaviourExpression=" display.show_message(0, 0)">
+              <trigger />
             </transition>
           </item>
-          <item id="1e17395736d24771ae1f2e2799048f31" cid="ELEM010" type="general-transition" name="" style-class="" visibility="package" change-tracking-state="added" creator="P02143292f0754bf1beaeea157447bdd5" creation-date="10/31/2019 20:44:34" from="960c7f795ef64fceb4740ba89665e01f" to="960c7f795ef64fceb4740ba89665e01f">
-            <transition guard="button_id == # &amp;&amp; command &gt; 16" behaviourExpression="   command =0">
-              <trigger>init_input_channel</trigger>
+          <item id="1e17395736d24771ae1f2e2799048f31" cid="ELEM010" type="general-transition" name="" style-class="" visibility="package" change-tracking-state="added" creator="P02143292f0754bf1beaeea157447bdd5" creation-date="10/31/2019 20:44:34" from="f8cd0c3bf7304b69ac616fa1edc3e111" to="960c7f795ef64fceb4740ba89665e01f">
+            <transition guard="command &gt; 16" behaviourExpression=" command = 1">
+              <trigger />
             </transition>
           </item>
           <item id="e5ac4e3b24a94f3684f72e7ea5a59bcb" cid="ST010" type="state" name="send_command" style-class="" visibility="package" change-tracking-state="added" creator="P02143292f0754bf1beaeea157447bdd5" creation-date="10/31/2019 20:46:55">
             <state-invariant />
             <actions>
-              <action id="sa-30e32d02-bcc5-4f1d-8218-b5d451778b00" name="entry" behavior="send_taak.send_message(0, command)" />
               <action id="sa-732ed082-f396-4c68-ae35-b9f844bb1d70" name="entry" behavior="button_id = init_input_channel.read()" />
             </actions>
           </item>
           <item id="69b7e55d7a314080b8177b405d3839d2" cid="ELEM012" type="general-transition" name="" style-class="" visibility="package" change-tracking-state="added" creator="P02143292f0754bf1beaeea157447bdd5" creation-date="10/31/2019 20:52:43" from="e5ac4e3b24a94f3684f72e7ea5a59bcb">
-            <transition guard="button_id == #" behaviourExpression="">
+            <transition guard="button_id == #" behaviourExpression=" send.send_message(0, command)">
               <trigger>init_input_channel</trigger>
             </transition>
           </item>
           <item id="5e7f580aa3874c6ba11712aa41cb49f0" cid="ST011" type="state" name="send_start" style-class="" visibility="package" change-tracking-state="added" creator="P02143292f0754bf1beaeea157447bdd5" creation-date="10/31/2019 20:55:06">
             <state-invariant />
             <actions>
-              <action id="sa-ff88e74a-0e5c-4c10-ac1b-7651e0938ef5" name="entry" behavior="display.show_message(0, 0)" />
               <action id="sa-16190695-5f09-4fb3-b342-4a6fe8656504" name="entry" behavior="send.send_message(0, 0)" />
               <action id="sa-8f98226a-80ed-45ba-9e84-962c1db317e3" name="entry" behavior="button_id = init_input_channel.read()" />
             </actions>
@@ -225,6 +229,12 @@
           </item>
           <item id="462d1a20a3b3476095606d63b7c9e177" cid="ELEM014" type="general-transition" name="" style-class="" visibility="package" change-tracking-state="added" creator="P02143292f0754bf1beaeea157447bdd5" creation-date="10/31/2019 20:58:35" from="5e7f580aa3874c6ba11712aa41cb49f0" to="5e7f580aa3874c6ba11712aa41cb49f0">
             <transition guard="button_id == *" behaviourExpression="">
+              <trigger>init_input_channel</trigger>
+            </transition>
+          </item>
+          <item id="f8cd0c3bf7304b69ac616fa1edc3e111" cid="DC001" type="decision" name="" style-class="" visibility="package" change-tracking-state="added" creator="P02143292f0754bf1beaeea157447bdd5" creation-date="11/06/2019 22:08:41" />
+          <item id="6e953c388ab94c8b83d9f039115da271" cid="ELEM016" type="general-transition" name="" style-class="" visibility="package" change-tracking-state="added" creator="P02143292f0754bf1beaeea157447bdd5" creation-date="11/06/2019 22:08:57" from="960c7f795ef64fceb4740ba89665e01f" to="f8cd0c3bf7304b69ac616fa1edc3e111">
+            <transition guard="button_id == #" behaviourExpression="">
               <trigger>init_input_channel</trigger>
             </transition>
           </item>
@@ -255,7 +265,7 @@
             <layout ax="287.5" ay="197" awidth="300" aheight="97" x="287.5" y="197" width="300" height="97" />
           </item>
           <item id="8cbbc53aeb6c4b638884d9fa04d0d164" iid="9bb99d0337974dada6ca6dedf4108264" creation-date="10/31/2019 20:27:59" order-index="6" type="relation">
-            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="153" y1="246" x2="288" y2="246" start-border-pos="0.38" end-border-pos="0.873711340206186" name-position="0,0">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="153" y1="246" x2="288" y2="246" start-border-pos="0.38" end-border-pos="0.873711340206186" name-position="0,3" name-width="111">
               <points>
                 <point x="153" y="246" />
                 <point x="288" y="246" />
@@ -276,7 +286,7 @@
             <relation from="fd224af676c342768feb9a349676b9bf" from-iid="9f296335edcd4a329c69df2b12809b34" to="960c7f795ef64fceb4740ba89665e01f" to-iid="3abedc8891284d2db535a36dda53d762" />
           </item>
           <item id="f60b75b643894478bc7f104d2cd3ea06" iid="744bca871d9c48149019df8b05c7ced9" creation-date="10/31/2019 20:31:57" order-index="10" type="relation">
-            <layout line-style="oblique" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="1146" y1="205" x2="1146" y2="246" start-border-pos="0.25" end-border-pos="0.376543208956718" name-position="129,17" name-width="247">
+            <layout line-style="oblique" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="1146" y1="205" x2="1146" y2="246" start-border-pos="0.25" end-border-pos="0.376543208956718" name-position="129,17" name-width="275">
               <points>
                 <point x="1146" y="205" />
                 <point x="1193" y="205" />
@@ -287,32 +297,31 @@
             <relation from="960c7f795ef64fceb4740ba89665e01f" from-iid="3abedc8891284d2db535a36dda53d762" to="960c7f795ef64fceb4740ba89665e01f" to-iid="3abedc8891284d2db535a36dda53d762" />
           </item>
           <item id="9d59e0afe6914ba7b7cc658fa18e0a3a" iid="3815143a0e024294933bbd0bf706d367" creation-date="10/31/2019 20:43:05" order-index="12" type="relation">
-            <layout line-style="oblique" lock-start-point="false" lock-end-point="true" lock-to-fields="false" auto-path="" x1="974" y1="286" x2="972" y2="627" start-border-pos="0.625152587890625" end-border-pos="0.124583333730698" name-position="127,-6" name-width="258">
+            <layout line-style="oblique" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="974" y1="426" x2="974" y2="627" start-border-pos="0.625" end-border-pos="0.124583333730698" name-position="90,-4" name-width="226">
               <points>
-                <point x="974" y="286" />
-                <point x="972" y="627" />
+                <point x="974" y="426" />
+                <point x="974" y="627" />
               </points>
             </layout>
-            <relation from="960c7f795ef64fceb4740ba89665e01f" from-iid="3abedc8891284d2db535a36dda53d762" to="e5ac4e3b24a94f3684f72e7ea5a59bcb" to-iid="3f21cd9a1b6649028e0112a774672cca" />
+            <relation from="f8cd0c3bf7304b69ac616fa1edc3e111" from-iid="b39dab9d4c5c414da65483e60749e445" to="e5ac4e3b24a94f3684f72e7ea5a59bcb" to-iid="3f21cd9a1b6649028e0112a774672cca" />
           </item>
           <item id="1e17395736d24771ae1f2e2799048f31" iid="42365c7a9b4c4d25abb205cb069225f3" creation-date="10/31/2019 20:44:34" order-index="15" type="relation">
-            <layout line-style="oblique" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="921" y1="286" x2="825" y2="286" start-border-pos="0.663517445325851" end-border-pos="0.733284890651703" name-position="-170,-39" name-width="238">
+            <layout line-style="oblique" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="954" y1="396" x2="825" y2="286" start-border-pos="0.875" end-border-pos="0.733284890651703" name-position="48,40" name-width="126">
               <points>
-                <point x="921" y="286" />
-                <point x="923" y="396" />
+                <point x="954" y="396" />
                 <point x="827" y="397" />
                 <point x="825" y="286" />
               </points>
             </layout>
-            <relation from="960c7f795ef64fceb4740ba89665e01f" from-iid="3abedc8891284d2db535a36dda53d762" to="960c7f795ef64fceb4740ba89665e01f" to-iid="3abedc8891284d2db535a36dda53d762" />
+            <relation from="f8cd0c3bf7304b69ac616fa1edc3e111" from-iid="b39dab9d4c5c414da65483e60749e445" to="960c7f795ef64fceb4740ba89665e01f" to-iid="3abedc8891284d2db535a36dda53d762" />
           </item>
           <item id="e5ac4e3b24a94f3684f72e7ea5a59bcb" iid="3f21cd9a1b6649028e0112a774672cca" anchor="None" creation-date="10/31/2019 20:46:55" order-index="16" type="entity">
-            <layout ax="822.5" ay="627" awidth="300" aheight="81" x="822.5" y="627" width="300" height="81" />
+            <layout ax="824" ay="627" awidth="300" aheight="81" x="824" y="627" width="300" height="81" />
           </item>
           <item id="69b7e55d7a314080b8177b405d3839d2" iid="c7cc7f02b60845229cdf0f287a96d55d" creation-date="10/31/2019 20:52:43" order-index="18" type="relation">
-            <layout line-style="oblique" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="881" y1="627" x2="822.5" y2="627" start-border-pos="0.0485611520707607" end-border-pos="0.700000002980232" name-position="2,-13" name-width="144">
+            <layout line-style="oblique" lock-start-point="true" lock-end-point="true" lock-to-fields="false" auto-path="" x1="882" y1="627" x2="822.5" y2="627" start-border-pos="0.0485611520707607" end-border-pos="0.700000002980232" name-position="-5,-8" name-width="248">
               <points>
-                <point x="881" y="627" />
+                <point x="882" y="627" />
                 <point x="881.5" y="601" />
                 <point x="822.5" y="601" />
                 <point x="822.5" y="627" />
@@ -324,9 +333,9 @@
             <layout ax="340" ay="619" awidth="300" aheight="97" x="340" y="619" width="300" height="97" />
           </item>
           <item id="78795ffc90ab438384b6cac1d0090e41" iid="80abbfd7986240bc9b583f953dd34947" creation-date="10/31/2019 20:55:18" order-index="20" type="relation">
-            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="822" y1="668" x2="640" y2="668" start-border-pos="0.873456790123457" end-border-pos="0.376288659793814" name-position="0,45" name-width="126">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="824" y1="668" x2="640" y2="668" start-border-pos="0.873456790123457" end-border-pos="0.376288659793814" name-position="0,45" name-width="126">
               <points>
-                <point x="822" y="668" />
+                <point x="824" y="668" />
                 <point x="640" y="668" />
               </points>
             </layout>
@@ -351,6 +360,18 @@
               </points>
             </layout>
             <relation from="5e7f580aa3874c6ba11712aa41cb49f0" from-iid="a9632d3443294c4b8d7665c48a6d2c43" to="fd224af676c342768feb9a349676b9bf" to-iid="9f296335edcd4a329c69df2b12809b34" />
+          </item>
+          <item id="f8cd0c3bf7304b69ac616fa1edc3e111" iid="b39dab9d4c5c414da65483e60749e445" anchor="None" creation-date="11/06/2019 22:08:41" order-index="24" type="entity">
+            <layout ax="954" ay="366" awidth="40" aheight="60" x="954" y="366" width="40" height="60" name-position="0,10" name-anchor="bottom" auto-anchor="true" label-attached="false" />
+          </item>
+          <item id="6e953c388ab94c8b83d9f039115da271" iid="53f9544e742e4a33b6501bef2790c702" creation-date="11/06/2019 22:08:57" order-index="25" type="relation">
+            <layout line-style="oblique" lock-start-point="false" lock-end-point="false" lock-to-fields="false" auto-path="" x1="974" y1="286" x2="974" y2="366" start-border-pos="0.625" end-border-pos="0.125" name-position="75,20" name-width="162">
+              <points>
+                <point x="974" y="286" />
+                <point x="974" y="366" />
+              </points>
+            </layout>
+            <relation from="960c7f795ef64fceb4740ba89665e01f" from-iid="3abedc8891284d2db535a36dda53d762" to="f8cd0c3bf7304b69ac616fa1edc3e111" to-iid="b39dab9d4c5c414da65483e60749e445" />
           </item>
         </layer>
       </diagram>

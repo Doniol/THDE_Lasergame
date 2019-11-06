@@ -27,15 +27,11 @@
         <item-type type-id="history" type="UmlHistory" />
         <value>1</value>
       </counter>
-      <counter>
-        <item-type type-id="" type="TextItem" />
-        <value>1</value>
-      </counter>
     </entity-names>
     <entity-ids>
       <counter>
         <item-type type-id="group" type="AbstractElementGroup" />
-        <value>3478</value>
+        <value>3492</value>
       </counter>
       <counter>
         <item-type type-id="initial-state" type="UmlInitialState" />
@@ -134,7 +130,7 @@
       </meta>
       <abstract-items />
       <sub-models />
-      <diagram type="uml-statechart" id="p55859b25671d4f6ba82c8bf50556a9ae_512771818" name="StateMachineDiagram1" order-index="1" uid="" show-id="false" show-name="true" show-parent-name="false" name-style="local-auto-parents" show-stereotypes="true" show-tagged-values="false" show-template-parameters="true" show-fields="true" show-empty-compartments="true" show-special-indicators="false" show-attributes="true" show-attribute-visibility="true" show-operations="true" show-operation-parameters="true" show-operation-visibility="true" show-nullability="true" show-sequence-number="false" show-extension-points="false" show-relationship-texts="true" show-description="false" show-field-description="false" auto-routed-paths="false" view-location="0,52" zoom="0.8">
+      <diagram type="uml-statechart" id="p55859b25671d4f6ba82c8bf50556a9ae_512771818" name="StateMachineDiagram1" order-index="1" uid="" show-id="false" show-name="true" show-parent-name="false" name-style="local-auto-parents" show-stereotypes="true" show-tagged-values="false" show-template-parameters="true" show-fields="true" show-empty-compartments="true" show-special-indicators="false" show-attributes="true" show-attribute-visibility="true" show-operations="true" show-operation-parameters="true" show-operation-visibility="true" show-nullability="true" show-sequence-number="false" show-extension-points="false" show-relationship-texts="true" show-description="false" show-field-description="false" auto-routed-paths="false" view-location="-80,-144" zoom="0.8">
         <style>
           <background-color index="1" color="#FFFFFFFF" />
           <background-color index="2" color="#FFFFFFFF" />
@@ -170,7 +166,7 @@
           </item>
           <item id="0eb1e26e8b674ba0baf8fd052a7db4f1" cid="IS002" type="initial-state" name="" style-class="" visibility="package" change-tracking-state="added" creator="Pc20ab1f6f22f4c22bff8458abc6e02a4" creation-date="10/31/2019 13:38:06" />
           <item id="42dddb14e4094e969136bf5370f00570" cid="ELEM044" type="general-transition" name="" style-class="" visibility="package" change-tracking-state="added" creator="Pc20ab1f6f22f4c22bff8458abc6e02a4" creation-date="11/02/2019 14:31:08" from="0dd954f41bc34aa2b30dcf16b69ff830" to="514907f6fcf349658c16d7f210d3a3fb">
-            <transition guard="array != test_array || array[0] != 1" behaviourExpression="">
+            <transition guard="array != test_array" behaviourExpression="">
               <trigger />
             </transition>
           </item>
@@ -190,7 +186,7 @@
             </transition>
           </item>
           <item id="fb1c362890124352acc06639bdbaea0e" cid="ELEM047" type="general-transition" name="" style-class="" visibility="package" change-tracking-state="added" creator="Pc20ab1f6f22f4c22bff8458abc6e02a4" creation-date="11/02/2019 14:33:08" from="88844e8485e54e4f921b99c97d722809" to="514907f6fcf349658c16d7f210d3a3fb">
-            <transition guard="!xor_test(array)" behaviourExpression=" player = to_int(player_array); data = to_int(data_array); run_game_listener.signal_log(player, data); game_parameters_listener.signal_log(player, data)">
+            <transition guard="xor_test(array)" behaviourExpression=" player = to_int(player_array); data = to_int(data_array); run_game_listener.signal_log(player, data); game_parameters_listener.signal_log(player, data)">
               <trigger />
             </transition>
           </item>

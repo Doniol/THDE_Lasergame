@@ -6,10 +6,10 @@
 class display_taak : public rtos::task<>{
 private:
     rtos::channel<std::array<int, 3>, 10> message_channel;
-    hwlib::glcd_oled oled;
+    hwlib::glcd_oled &oled;
 
 public:
-    display_taak(hwlib::glcd_oled oled):
+    display_taak(hwlib::glcd_oled &oled):
         task("display_taak"),
         message_channel(this, "message_channel"),
         oled(oled)
@@ -27,8 +27,10 @@ public:
             if(message[0] == 0){
                 if(message[1] != 0){
                     display << "Command: " << message[1] << hwlib::flush;
+                } else if(message[0] == 10 && message[1] == 10){
+                    display << "GAME OVER" << hwlib::flush;
                 } else {
-                    display << "Start Game" <<hwlib::flush;
+                    display << "Start Game" << hwlib::flush;
                 }
             } else {
                 display << "Player: " << message[0] << "\nTime: " << message[1] << hwlib::flush;

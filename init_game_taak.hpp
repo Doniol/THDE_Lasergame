@@ -21,6 +21,10 @@ public:
         send(send)
     {}
 
+    void run_init_game_control(){
+        run_init_game_flag.set();
+    }
+
     void button_pressed(char button_id) override{
         init_input_channel.write(button_id);
     }

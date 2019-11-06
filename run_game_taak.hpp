@@ -5,7 +5,6 @@
 
 class run_game_taak : public rtos::task<>, public decoder_listener, public invoer_listener, public parameters_listener{
 private:
-   struct recieved_hits{int player; int weapon;};
    send_taak &send;
    game_parameters_taak &game_parameters;
    init_game_taak &init_game;
@@ -19,19 +18,24 @@ private:
    rtos::pool< std::array<int, 3> > parameters_pool;
    rtos::channel<char, 10> run_input_channel;
    char button_id;
-   bool cooldown;
    int hp;
    int player_id;
    int weapon;
    int time;
    int i;
+   int firerate;
+   std::array<int, 2> message;
+   int hit_by;
+   int enemy_weapon;
    std::array<int, 3> par_msg;
-   std::array<recieved_hits, 30> hits;
-   enum class states{create_player_profile, waiting_for_parameters, running_game, gun_ready, gun_not_ready, game_over};
+   std::array<std::array<int, 2>, 30> hits;
+   enum class states{create_player_profile, waiting_for_parameters, running_game, game_over};
    states state;
+   enum class gun_states{gun_ready, gun_not_ready};
+   gun_states gun_state;
 
 public:
-   run_game(send_taak &send, game_parameters_taak &game_parameters, init_game_taak &init_game, 
+   run_game_taak(send_taak &send, game_parameters_taak &game_parameters, init_game_taak &init_game, 
             display_taak &display, transfer_hits_taak &transfer_hits):
       task("run_game"),
       send(send),
@@ -62,15 +66,66 @@ public:
       run_input_channel.write(message);
    }
 
+   void weapon_firerate(int & weapon){
+      switch(weapon){
+         case 0:
+            firerate = 500'000;
+         case 1:
+            firerate = 1'500'000;
+         case 2:
+            firerate = 2'000'000;
+         case 3:
+            firerate = 3'000'000;
+         case 4:
+            firerate = 4'000'000;
+         case 5:
+            firerate = 5'000'000;
+         case 6:
+            firerate = 8'000'000;
+         case 7:
+            firerate = 9'000'000;
+         case 8:
+            firerate = 12'000'000;
+         case 9:
+            firerate = 18'000'000;
+      }
+   }
+
+   int enemy_weapon_damage(int & enemy_weapon){
+      switch(enemy_weapon){
+         case 0:
+            return 4;
+         case 1:
+            return 8;
+         case 2:
+            return 10;
+         case 3:
+            return 15;
+         case 4:
+            return 19;
+         case 5:
+            return 25;
+         case 6:
+            return 30;
+         case 7:
+            return 50;
+         case 8:
+            return 75;
+         case 9:
+            return 100;
+      }
+      return 0;
+   }
+
    void main() override {
       state = states::create_player_profile;
+      gun_state = gun_states::gun_ready;
       for(;;){       
          switch(state){
             case states::create_player_profile:
                hp = 100;
                second_clock.set(1'000'000);
                cooldown_clock.set(0);
-               state = states::idle;
                i = 0;
                button_id = run_input_channel.read();
                if(button_id == 'C'){
@@ -78,6 +133,7 @@ public:
                   state = states::create_player_profile;
                }
                else if(button_id == 'A'){
+                  game_parameters.add_listener(this);
                   game_parameters.run_game_parameters();
                   state = states::waiting_for_parameters;
                }
@@ -93,13 +149,14 @@ public:
                state = states::running_game;
                break;
             
-            case states::running_game:
-               auto event = wait(message_flag + second_clock cooldown_clock+ run_input_channel);
+            case states::running_game:{
+               auto event = wait(message_flag + second_clock + cooldown_clock + run_input_channel);
                if(event == message_flag){
                   message = message_pool.read();
                   hit_by = message[0];
                   enemy_weapon = message[1];
-                  hp -= weapon::damage;
+                  int enemy_damage = enemy_weapon_damage(enemy_weapon);
+                  hp -= enemy_damage;
                   hits[i] = {hit_by, enemy_weapon};
                   i++;
                   if(i == 30){
@@ -108,47 +165,40 @@ public:
                   else{
                      state = states::running_game;
                   }
-               }
-               if(event == second_clock){
+               } else if(event == second_clock){
                   time--;
                   if(time == 0){
-                     state == states::game_over;
+                     state = states::game_over;
                   }
                   else{
-                     state == states::running_game;
+                     state = states::running_game;
                   }
-               }
-               if(event == cooldown_clock){
-                  cooldown = 0;
-                  cooldown_clock.set(0);
-                  state::states::running_game;
-               }
-               if(event == run_input_channel && cooldown == 0){
+               } else if(event == run_input_channel){
                   button_id = run_input_channel.read();
                   if(button_id == 'T'){
-                     state = states::gun_ready;
+                     switch(gun_state){
+                        case gun_states::gun_ready:
+                           send.send_message(player_id, weapon);
+                           cooldown_clock.set(firerate);
+                           gun_state = gun_states::gun_not_ready;
+                           break;
+                        
+                        case gun_states::gun_not_ready:
+                           if(event == cooldown_clock){
+                              gun_state = gun_states::gun_ready;
+                           }
+                           break;
+                     }
                   }
                }
                break;
-            
-            case states::gun_ready:
-               send.send_message(player_id, weapon);
-               state = states::gun_not_ready;
-               break;
-
-            case states::gun_not_ready:
-               cooldown = 1;
-               cooldown_clock.set(weapon::firerate);
-               state = states::running_game;
-               break;
+            }
 
             case states::game_over:
-               display.show_message("GAME OVER")
+               display.show_message(10, 10);
                if(time > 0){
                   time--;
-                  state = states::game_over;
-               }
-               else{
+               } else {
                   transfer_hits.game_done(hits, player_id);
                   state = states::create_player_profile;
                }

@@ -5,8 +5,7 @@
 
 class transfer_hits_taak : public rtos::task<>, public invoer_listener{
 private:
-    struct received_hits{int player; int weapon;};
-    struct data{std::array<received_hits, 30> hits; int player_id;};
+    struct data{std::array<std::array<int, 2>, 30> hits; int player_id;};
     rtos::pool<data> game_done_pool;
     rtos::flag game_done_flag;
     rtos::flag trigger_pressed_flag;
@@ -26,14 +25,13 @@ public:
         }
     }
 
-    void game_done(std::array<received_hits, 30> hits, int player_id){
+    void game_done(std::array<std::array<int, 2>, 30> hits, int player_id){
         data input = {hits, player_id};
         game_done_pool.write(input);
     }
 
     void main() override{
         state = states::wait_for_end;
-        data message;
         for(;;){
             switch(state){
                 case states::wait_for_end:
@@ -42,10 +40,10 @@ public:
                     break;
 
                 case states::wait_for_connection:
-                    message = game_done_pool.read();
+                    data message = game_done_pool.read();
                     wait(trigger_pressed_flag);
                     for(unsigned int i = 0; i < 30; i++){
-                        hwlib::cout << message.player_id << ", hit by: " << message.hits[i].player << ", with a: " << message.hits[i].weapon;
+                        hwlib::cout << message.player_id << ", hit by: " << message.hits[i][0] << ", with a: " << message.hits[i][1];
                     }
                     state = states::wait_for_end;
                     break;

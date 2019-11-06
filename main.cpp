@@ -29,14 +29,13 @@ int main(){
     auto oled = hwlib::glcd_oled(i2c_bus, 0x3c);
 
 
-    game_parameters_taak game_parameters;
-
     auto display = display_taak(oled);
     auto send = send_taak();
     auto init_game = init_game_taak(send, display);
     auto transfer_hits = transfer_hits_taak();
+    auto game_parameters = game_parameters_taak();
     auto run_game = run_game_taak(send, game_parameters, init_game, display, transfer_hits);
-    game_parameters = game_parameters_taak(run_game);
+    game_parameters.add_listener(&run_game);
     auto decoder = decoder_taak(game_parameters, run_game);
     auto pulse_meter = pulse_meter_taak(decoder, tsop_signal, tsop_gnd, tsop_vdd);
     auto input = invoer_taak(keypad, button, init_game, run_game, game_parameters, transfer_hits);

@@ -13,8 +13,6 @@
 #include "init_game_taak.hpp"
 #include "run_game_taak.hpp"
 #include <array>
-#include <string>
-#include <iostream>
 
 
 

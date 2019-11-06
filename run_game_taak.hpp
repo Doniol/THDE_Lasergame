@@ -1,5 +1,5 @@
-#ifndef RUNGAME_HPP
-#define RUNGAME_HPP
+#ifndef RUN_GAME_TAAK_HPP
+#define RUN_GAME_TAAK_HPP
 
 #include "IR.hpp"
 
